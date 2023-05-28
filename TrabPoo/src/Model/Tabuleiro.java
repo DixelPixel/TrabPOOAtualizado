@@ -249,34 +249,37 @@ public class Tabuleiro {
 		return ultima.getPecas().size()==4;
 	}
 	
-	private void movePecaParaCasaPermitida(Peca peca, int vDado) {
+	private boolean movePecaParaCasaPermitida(Peca peca, int vDado) {
 	
 		
-		int i = 0;
+		int i, pos = 1;
 		
-		for(i = 1; i < vDado; i++) {
+		for(i = 1; i < vDado; i++, pos++) {
 			int idx = posFinal(i+peca.getPos());
 			Casa casaAtual = casas[idx];
-
 			if(!casaAtual.podeMover()) {
 				/*
 				 * a questão aqui é mover a peça para a casa imediatamente anterior a uma
 				 * barreira caso exista uma. Se ele ja moveu, o loop acabou.
 				 */
-				executaOperacoesParaMover(peca, i-1);
+				pos = i-1;
 				break;
 			}
 		}
-		if(i == vDado) {
+		if(pos == 0) {
 			/*
-			 * se o loop chegou no final, significa que nao encontramos restrições para mover
-			 * a peça e ela pode ser movida a quantidade de casas qtd passada como parametro
+			 * nesse caso, tem um impedimento para movimentação na casa imediatamente
+			 * posterior a casa atual da peca, e portanto essa peca nao pode ser mexida.
 			 */
-			executaOperacoesParaMover(peca, vDado);
+			return false;
+		}
+		else {
+			executaOperacoesParaMover(peca, pos);
+			return true;
 		}
 	}
 	
-	public void movePeca(Jogador j, int idxCasa, int vDado) {
+	public boolean movePeca(Jogador j, int idxCasa, int vDado) {
 		/*
 		 * essa é a função responsavel por decidir se o movimento da peça na casa de
 		 * indice passado pode ser feita o idxCasa = -1 significa que ele quer tirar
@@ -296,7 +299,7 @@ public class Tabuleiro {
 					if(setPecaCasaDeSaida(j.getPeca(idxCasa)))
 						/*nesse caso, o jogador saiu da casa inicial com uma peça, ou seja,
 						jogada feita*/
-						return;
+						return true;
 				}
 			}
 			
@@ -306,18 +309,19 @@ public class Tabuleiro {
 			 * peça que está na barreira
 			 */
 				
-				if(casas[idxCasa].getEfeito() == Efeitos.BARREIRA)
+				if(casas[idxCasa].getEfeito() == Efeitos.BARREIRA) {
 					/* 
 					 * nesse caso, o jogador está tentando mover uma peça que está
 					 * na barreira então podemos move-la
 					 */
-					movePecaParaCasaPermitida(j.getPeca(idxCasa), vDado);
+					return movePecaParaCasaPermitida(j.getPeca(idxCasa), vDado);
+				}
 				else
 					/*
 					 * se o jogador está tentando mover uma peça em um casa que 
 					 * não é barreira, não acontece nada
 					 */
-					return;
+					return false;
 			}else {
 				if(vDado == 5) {
 					if(setPecaCasaDeSaida(j.getPeca(-1))) {
@@ -325,18 +329,19 @@ public class Tabuleiro {
 						 * nesse caso o jogador saiu com uma peça da casa inicial e
 						 * essa foi a sua jogada
 						 */
-						return;
+						return true;
 					}
 				}
 				if(j.getPeca(idxCasa) != null) {
-					movePecaParaCasaPermitida(j.getPeca(idxCasa), vDado);
+					return movePecaParaCasaPermitida(j.getPeca(idxCasa), vDado);
 				}
 			}
 		}else {
 			if(vDado == 5) {
 				setPecaCasaDeSaida(j.getPeca(-1));
+				return true;
 			}
 		}
-		
+		return false;
 	}
 }
