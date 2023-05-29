@@ -49,6 +49,7 @@ public class Peca {
 	
 	protected void setPos(int pos) {
 		this.pos = pos;
+
 	}
 	
 	protected void setCasasPercorridas(int n) {
@@ -99,5 +100,5 @@ public class Peca {
 		casasPercorridas = 0;
 	}
 
-	
+
 }

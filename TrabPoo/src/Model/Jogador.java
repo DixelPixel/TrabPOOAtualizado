@@ -32,14 +32,14 @@ public class Jogador implements Comparable<Jogador>{
 			x = 25;
 			y = 25;
 		}else if(cor == Cores.VERDE){
-			x = 250;
+			x = 475;
 			y = 25;
 		}else if(cor == Cores.AMARELO){
-			x = 250;
-			y = 225;
+			x = 475;
+			y = 420;
 		}else if(cor == Cores.AZUL){
 			x = 25;
-			y = 225;
+			y = 420;
 		}
 		for(int i = 0; i < 4;i++){
 			pecas[i]= new Peca(cor);
@@ -47,14 +47,14 @@ public class Jogador implements Comparable<Jogador>{
 		pecas[0].setX(x);
 		pecas[0].setY(y);
 
-		pecas[1].setX(x+75);
+		pecas[1].setX(x+200);
 		pecas[1].setY(y);
 
 		pecas[2].setX(x);
-		pecas[2].setY(y+75);
+		pecas[2].setY(y+200);
 
-		pecas[3].setX(x+75);
-		pecas[3].setY(y+75);
+		pecas[3].setX(x+200);
+		pecas[3].setY(y+200);
 
 	}
 

@@ -24,21 +24,7 @@ public class Tab extends JFrame {
         setSize(LARG_DEFAULT,ALT_DEFAULT);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 		API api = API.getInstance();
-
-
-
-		desenha_pecas(0, Color.RED);
-		desenha_pecas(1, Color.GREEN);
-		desenha_pecas(2,Color.ORANGE);
-		desenha_pecas(3,Color.BLUE);
-//		desenha_pecas(2);
-//		desenha_pecas(3);
-
-		//Peças Azuis:
-
-
-
-
+		getContentPane().setLayout(null);
 
 		Componente myComponent = new Componente();
 		myComponent.setBounds(0,0,800,700);
@@ -50,60 +36,9 @@ public class Tab extends JFrame {
 
 		setVisible(true);
 
-
     }
 
-	public void desenha_pecas(int num, Color color){
-		API api = API.getInstance();
-		int x,y;
-		x = api.get_x_jog(num,0);
-		y = api.get_y_jog(num,0);
 
-		PecaJog peca1v = new PecaJog(x,y,color);
-		peca1v.setBounds(peca1v.getX(),peca1v.getY(),peca1v.getX()+40,peca1v.getY()+40);
-		getContentPane().add(peca1v);
-
-		x = api.get_x_jog(num,1);
-		y = api.get_y_jog(num,1);
-
-		PecaJog peca2 = new PecaJog(x,y,color);
-		peca2.setBounds(peca2.getX(),peca2.getY(),peca2.getX()+40,peca2.getY()+40);
-		getContentPane().add(peca2);
-
-		x = api.get_x_jog(num,2);
-		y = api.get_y_jog(num,2);
-
-		PecaJog peca3 = new PecaJog(x,y,color);
-		peca3.setBounds(peca3.getX(),peca3.getY(),peca3.getX()+40,peca3.getY()+40);
-		getContentPane().add(peca3);
-
-		x = api.get_x_jog(num,3);
-		y = api.get_y_jog(num,3);
-
-		PecaJog peca4 = new PecaJog(x,y,color);
-		peca4.setBounds(peca4.getX(),peca4.getY(),peca4.getX()+40,peca4.getY()+40);
-		getContentPane().add(peca4);
-
-
-	}
-
-	public void add_azul(){
-		PecaJog peca1 = new PecaJog(25,25,Color.RED);
-		peca1.setBounds(peca1.getX(),peca1.getY(),peca1.getX()+40,peca1.getY()+40);
-		getContentPane().add(peca1);
-
-		PecaJog peca2 = new PecaJog(25,100,Color.RED);
-		peca2.setBounds(peca2.getX(),peca2.getY(),peca2.getX()+40,peca2.getY()+40);
-		getContentPane().add(peca2);
-
-		PecaJog peca3 = new PecaJog(100,100,Color.RED);
-		peca3.setBounds(peca3.getX(),peca3.getY(),peca3.getX()+40,peca3.getY()+40);
-		getContentPane().add(peca3);
-
-		PecaJog peca4 = new PecaJog(100,25,Color.RED);
-		peca4.setBounds(peca4.getX(),peca4.getY(),peca4.getX()+40,peca4.getY()+40);
-		getContentPane().add(peca4);
-	}
 
 	public void add_vermelho(){
 
