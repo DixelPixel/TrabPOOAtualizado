@@ -29,12 +29,6 @@ public class Menu extends JComponent {
         JLabel t_Resultado = new JLabel("Resultado:");
         JLabel t_JogadorAtual = new JLabel("Azul");
 
-        t_AJogar.setBounds(920, 260, 300, 50);
-        t_AJogar.setFont(new Font("Arial", Font.BOLD, 24));
-        t_JogadorAtual.setBounds(930, 290, 300, 50);
-        t_JogadorAtual.setFont(new Font("Arial", Font.BOLD, 24));
-        t_Resultado.setBounds(900, 490, 300, 50);
-        t_Resultado.setFont(new Font("Arial", Font.BOLD, 24));
 
 //		Adicionando os elementos na janela
         frame.add(b_NovoJogo);
@@ -45,6 +39,12 @@ public class Menu extends JComponent {
         frame.add(t_AJogar);
         frame.add(t_JogadorAtual);
 
+        t_AJogar.setBounds(920, 260, 300, 50);
+        t_AJogar.setFont(new Font("Arial", Font.BOLD, 24));
+        t_JogadorAtual.setBounds(930, 290, 300, 50);
+        t_JogadorAtual.setFont(new Font("Arial", Font.BOLD, 24));
+        t_Resultado.setBounds(900, 490, 300, 50);
+        t_Resultado.setFont(new Font("Arial", Font.BOLD, 24));
 
         JLabel dado = new JLabel();
 

@@ -62,16 +62,13 @@ class Componente extends JComponent {
         g.fillRect(0,0,294,290);
         g.setColor(Color.black);
         g.drawRect(0,0,294,290);
-        g.setColor(Color.green.darker());
-        g.fillRect(30,30,234,230);
 
         //quadrado azul
         g.setColor(BLUE_COLOR);
         g.fillRect(0,410,294,290);
         g.setColor(Color.black);
         g.drawRect(0,410,294,290);
-        g.setColor(RED_COLOR);
-        g.fillRect(30,430,234,220);
+
 
 
         //quadrado amarelo
@@ -79,8 +76,7 @@ class Componente extends JComponent {
         g.fillRect(441,410,294,290);
         g.setColor(Color.black);
         g.drawRect(441,410,294,290);
-        g.setColor(BLUE_COLOR);
-        g.fillRect(471,430,234,220);
+
 
 
         //quadrado verde
@@ -88,8 +84,7 @@ class Componente extends JComponent {
         g.fillRect(441,0,294,290);
         g.setColor(Color.black);
         g.drawRect(441,0,294,290);
-        g.setColor(Color.yellow);
-        g.fillRect(471,30,234,230);
+
 
         //casas do lado esquerdo
         for(int i = 0; i < 3; i++){

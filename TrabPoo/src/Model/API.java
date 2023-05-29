@@ -99,4 +99,13 @@ public class API {
     public int rolarDado() {
     	return Dado.rolarDado();
     }
+
+    public int get_x_jog(int num, int peca){
+        Peca[] pecas = jogadores.get(num).getPecas();
+        return pecas[peca].getX();
+    }
+    public int get_y_jog(int num, int peca) {
+        Peca[] pecas = jogadores.get(num).getPecas();
+        return pecas[peca].getY();
+    }
 }

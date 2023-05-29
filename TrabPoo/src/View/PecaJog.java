@@ -13,17 +13,17 @@ public class PecaJog extends JComponent {
 	private int y;
 	private Color cor;
 	
-	public PecaJog(int x, int y, Color cor, JFrame frame) {
+	public PecaJog(int x, int y, Color cor) {
 		this.x = x;
 		this.y = y;
 		this.cor = cor;
 
-		this.setLocation(x,y);
 
 		this.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				setLocation(x+5,y+5);
+				System.out.println(x+ " "+ y);
+
 			}
 
 			@Override
@@ -58,7 +58,6 @@ public class PecaJog extends JComponent {
 		 g.setColor(cor);
 		 g.fillOval(x,y,30,30);
 
-		 System.out.println("peca: "+x+ " "+ y);
 		 
 		 
 		 
