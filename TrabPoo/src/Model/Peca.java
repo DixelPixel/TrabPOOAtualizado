@@ -4,6 +4,8 @@ public class Peca {
 	
 	private final Cores cor;
 	private int pos;
+	private int x;
+	private int y;
 	private int casasPercorridas;
 	private boolean retaFinal = false;
 	//consideramos que as casas percorridas de cada peça incluem a primeira jogada, ou seja, a saída da casa inicial para a casa de saída.
@@ -16,8 +18,23 @@ public class Peca {
 		this.cor = cor;
 		pos = -1;
 		casasPercorridas = 0;
+
 	}
-	
+	protected void setX(int x){
+		this.x = x;
+	}
+	protected void setY(int y){
+		this.y = y;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
 	protected Cores getCor() {
 		return cor;
 	}
@@ -32,6 +49,7 @@ public class Peca {
 	
 	protected void setPos(int pos) {
 		this.pos = pos;
+
 	}
 	
 	protected void setCasasPercorridas(int n) {
@@ -82,5 +100,5 @@ public class Peca {
 		casasPercorridas = 0;
 	}
 
-	
+
 }

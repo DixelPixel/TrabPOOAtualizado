@@ -23,5 +23,7 @@ public class Main {
 		// vermelho
 		c.turno(-1, 5);
 
+
+
 	}
 }

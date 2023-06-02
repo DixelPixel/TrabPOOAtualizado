@@ -1,5 +1,7 @@
 package View;
 
+import Model.API;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -58,51 +60,50 @@ class Componente extends JComponent {
        
 
         //quadrado vermelho
-        g.setColor(RED_COLOR);
-        g.fillRect(0,0,294,290);
-        g.setColor(Color.black);
-        g.drawRect(0,0,294,290);
-        g.setColor(Color.green.darker());
-        g.fillRect(30,30,234,230);
+        g2d.setColor(RED_COLOR);
+        g2d.fillRect(0,0,294,290);
+        g2d.setColor(Color.black);
+        g2d.drawRect(0,0,294,290);
+
+        desenha_pecas(g2d,0,Color.RED);
 
         //quadrado azul
-        g.setColor(BLUE_COLOR);
-        g.fillRect(0,410,294,290);
-        g.setColor(Color.black);
-        g.drawRect(0,410,294,290);
-        g.setColor(RED_COLOR);
-        g.fillRect(30,430,234,220);
+        g2d.setColor(BLUE_COLOR);
+        g2d.fillRect(0,410,294,290);
+        g2d.setColor(Color.black);
+        g2d.drawRect(0,410,294,290);
+        desenha_pecas(g2d,3,Color.BLUE);
+
 
 
         //quadrado amarelo
-        g.setColor(Color.yellow);
-        g.fillRect(441,410,294,290);
-        g.setColor(Color.black);
-        g.drawRect(441,410,294,290);
-        g.setColor(BLUE_COLOR);
-        g.fillRect(471,430,234,220);
+        g2d.setColor(Color.yellow);
+        g2d.fillRect(441,410,294,290);
+        g2d.setColor(Color.black);
+        g2d.drawRect(441,410,294,290);
+        desenha_pecas(g2d,2,Color.ORANGE);
+
 
 
         //quadrado verde
-        g.setColor(Color.green.darker());
-        g.fillRect(441,0,294,290);
-        g.setColor(Color.black);
-        g.drawRect(441,0,294,290);
-        g.setColor(Color.yellow);
-        g.fillRect(471,30,234,230);
+        g2d.setColor(Color.green.darker());
+        g2d.fillRect(441,0,294,290);
+        g2d.setColor(Color.black);
+        g2d.drawRect(441,0,294,290);
+        desenha_pecas(g2d,1,Color.GREEN);
 
         //casas do lado esquerdo
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 6; j++){
                 if(i == 1 && j >0){
-                    g.setColor(RED_COLOR);
-                    g.fillRect(49*j,290 + 40*i,49,40);
+                    g2d.setColor(RED_COLOR);
+                    g2d.fillRect(49*j,290 + 40*i,49,40);
                 }else if(i == 0 && j ==1){
-                    g.setColor(RED_COLOR);
-                    g.fillRect(49*j,290 + 40*i,49,40);
+                    g2d.setColor(RED_COLOR);
+                    g2d.fillRect(49*j,290 + 40*i,49,40);
                 }
-                g.setColor(Color.black);
-                g.drawRect(49*j,290 + 40*i,49,40);
+                g2d.setColor(Color.black);
+                g2d.drawRect(49*j,290 + 40*i,49,40);
             }
         }
 
@@ -111,14 +112,14 @@ class Componente extends JComponent {
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 6; j++){
                 if(i == 1 && j <5){
-                    g.setColor(Color.YELLOW);
-                    g.fillRect(441+49*j,290 + 40*i,49,40);
+                    g2d.setColor(Color.YELLOW);
+                    g2d.fillRect(441+49*j,290 + 40*i,49,40);
                 }else if(i == 2 && j ==4){
-                    g.setColor(Color.YELLOW);
-                    g.fillRect(441+49*j,290 + 40*i,49,40);
+                    g2d.setColor(Color.YELLOW);
+                    g2d.fillRect(441+49*j,290 + 40*i,49,40);
                 }
-                g.setColor(Color.black);
-                g.drawRect(441+49*j,290 + 40*i,49,40);
+                g2d.setColor(Color.black);
+                g2d.drawRect(441+49*j,290 + 40*i,49,40);
             }
         }
 
@@ -127,14 +128,14 @@ class Componente extends JComponent {
         for(int i = 0; i < 6; i++){
             for(int j = 0; j < 3; j++){
                 if(j == 1 && i >0){
-                    g.setColor(Color.GREEN.darker());
-                    g.fillRect(294+ 49*j, 48*i,49,48);
+                    g2d.setColor(Color.GREEN.darker());
+                    g2d.fillRect(294+ 49*j, 48*i,49,48);
                 }else if(i == 1 && j ==2){
-                    g.setColor(Color.GREEN.darker());
-                    g.fillRect(294+ 49*j, 48*i,49,48);
+                    g2d.setColor(Color.GREEN.darker());
+                    g2d.fillRect(294+ 49*j, 48*i,49,48);
                 }
-                g.setColor(Color.black);
-                g.drawRect(294+ 49*j, 48*i,49,48);
+                g2d.setColor(Color.black);
+                g2d.drawRect(294+ 49*j, 48*i,49,48);
             }
         }
 
@@ -143,42 +144,57 @@ class Componente extends JComponent {
         for(int i = 0; i < 6; i++){
             for(int j = 0; j < 3; j++){
                 if(j == 1 && i <5){
-                    g.setColor(BLUE_COLOR);
-                    g.fillRect(294+ 49*j, 410 + 42*i,49,42);
+                    g2d.setColor(BLUE_COLOR);
+                    g2d.fillRect(294+ 49*j, 410 + 42*i,49,42);
                 }else if(i == 4 && j ==0){
-                    g.setColor(BLUE_COLOR);
-                    g.fillRect(294, 410 + 42*i,49,42);
+                    g2d.setColor(BLUE_COLOR);
+                    g2d.fillRect(294, 410 + 42*i,49,42);
                 }
-                g.setColor(Color.black);
-                g.drawRect(294+ 49*j, 410 + 42*i,49,42);
+                g2d.setColor(Color.black);
+                g2d.drawRect(294+ 49*j, 410 + 42*i,49,42);
             }
         }
 
-        g.setColor(Color.black);
-        g.drawRect(294, 289,147,121);
+        g2d.setColor(Color.black);
+        g2d.drawRect(294, 289,147,121);
 
         
         // triângulos da reta final:
-        g.setColor(Color.green.darker());
-        g.fillPolygon(new int[] {294,441,367}, new int[]{290,290,350}, 3);
-        g.setColor(Color.black);
-        g.drawPolygon(new int[] {294,441,367}, new int[]{290,290,350}, 3);
+        g2d.setColor(Color.green.darker());
+        g2d.fillPolygon(new int[] {294,441,367}, new int[]{290,290,350}, 3);
+        g2d.setColor(Color.black);
+        g2d.drawPolygon(new int[] {294,441,367}, new int[]{290,290,350}, 3);
 
 
-        g.setColor(BLUE_COLOR);
-        g.fillPolygon(new int[] {294,441,367}, new int[]{410,410,350}, 3);
-        g.setColor(Color.black);
-        g.drawPolygon(new int[] {294,441,367}, new int[]{410,410,350}, 3);
+        g2d.setColor(BLUE_COLOR);
+        g2d.fillPolygon(new int[] {294,441,367}, new int[]{410,410,350}, 3);
+        g2d.setColor(Color.black);
+        g2d.drawPolygon(new int[] {294,441,367}, new int[]{410,410,350}, 3);
 
-        g.setColor(RED_COLOR);
-        g.fillPolygon(new int[] {294,294,367}, new int[]{290,410,350}, 3);
-        g.setColor(Color.black);
-        g.drawPolygon(new int[] {294,294,367}, new int[]{290,410,350}, 3);
+        g2d.setColor(RED_COLOR);
+        g2d.fillPolygon(new int[] {294,294,367}, new int[]{290,410,350}, 3);
+        g2d.setColor(Color.black);
+        g2d.drawPolygon(new int[] {294,294,367}, new int[]{290,410,350}, 3);
 
 
-        g.setColor(Color.yellow);
-        g.fillPolygon(new int[] {441,441,367}, new int[]{290,410,350}, 3);
-        g.setColor(Color.black);
-        g.drawPolygon(new int[] {441,441,367}, new int[]{290,410,350}, 3);
+        g2d.setColor(Color.yellow);
+        g2d.fillPolygon(new int[] {441,441,367}, new int[]{290,410,350}, 3);
+        g2d.setColor(Color.black);
+        g2d.drawPolygon(new int[] {441,441,367}, new int[]{290,410,350}, 3);
+    }
+
+    protected void desenha_pecas(Graphics2D g, int num,Color cor){
+        API api = API.getInstance();
+        int x,y;
+        for(int i = 0; i < 4;i++) {
+            x = api.get_x_jog(num, i);
+            y = api.get_y_jog(num, i);
+
+            g.setColor(Color.black);
+            g.drawOval(x, y, 40, 40);
+            g.setColor(cor);
+            g.fillOval(x, y, 40, 40);
+        }
+
     }
 }

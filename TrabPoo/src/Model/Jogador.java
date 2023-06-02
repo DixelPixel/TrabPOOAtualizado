@@ -20,9 +20,42 @@ public class Jogador implements Comparable<Jogador>{
 		this.nome = nome;
 		this.cor = cor;
 		pecas = new Peca[4];
-		for(int i = 0; i < 4; i++) {
-			pecas[i] = new Peca(cor);
+
+		calcula_pos_ini(cor,pecas);
+
+	}
+
+	protected void calcula_pos_ini(Cores cor, Peca[] pecas){
+		int x=0;
+		int y=0;
+		if(cor == Cores.VERMELHO){
+			x = 25;
+			y = 25;
+		}else if(cor == Cores.VERDE){
+			x = 475;
+			y = 25;
+		}else if(cor == Cores.AMARELO){
+			x = 475;
+			y = 420;
+		}else if(cor == Cores.AZUL){
+			x = 25;
+			y = 420;
 		}
+		for(int i = 0; i < 4;i++){
+			pecas[i]= new Peca(cor);
+		}
+		pecas[0].setX(x);
+		pecas[0].setY(y);
+
+		pecas[1].setX(x+200);
+		pecas[1].setY(y);
+
+		pecas[2].setX(x);
+		pecas[2].setY(y+200);
+
+		pecas[3].setX(x+200);
+		pecas[3].setY(y+200);
+
 	}
 
 	protected String getNome() {

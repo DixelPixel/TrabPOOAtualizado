@@ -23,19 +23,8 @@ public class Tab extends JFrame {
     public Tab(){
         setSize(LARG_DEFAULT,ALT_DEFAULT);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        
-        //setLayout(null); // disable layout manager
-
-
-		PecaJog peca1 = new PecaJog(5,5,Color.RED, this);
-		peca1.setBounds(5,5,40,40);
-		getContentPane().add(peca1);
-
-
-		PecaJog peca2 = new PecaJog(50,50,Color.BLACK,this);
-		peca2.setBounds(50,50,40,40);
-		getContentPane().add(peca2);
-
+		API api = API.getInstance();
+		getContentPane().setLayout(null);
 
 		Componente myComponent = new Componente();
 		myComponent.setBounds(0,0,800,700);
@@ -45,12 +34,15 @@ public class Tab extends JFrame {
 		menu.setBounds(800,0,500,700);
 		getContentPane().add(menu);
 
-
-
 		setVisible(true);
 
-
     }
+
+
+
+	public void add_vermelho(){
+
+	}
     
     private static int getCoordLinear(int i, int j, int cor) {
     	int coord = -1;
@@ -170,10 +162,9 @@ public class Tab extends JFrame {
  
     public static void main(String[] args){
         Tab frame = new Tab();
-        API api = API.getInstance();
+//        API api = API.getInstance();
 
         frame.setResizable(false);
-
         frame.setDefaultCloseOperation(3);
         frame.setVisible(true);
     }
