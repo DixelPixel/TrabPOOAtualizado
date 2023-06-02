@@ -99,6 +99,18 @@ public class API {
     public int rolarDado() {
     	return Dado.rolarDado();
     }
+    
+    /**
+     * Devolver a peça mais a frente do jogador da vez para
+     * a casa inicial
+     *
+     */
+    public void voltaCasaInicial() {
+    	Peca p = jogadorDaVez.getPecaMaiorPos();
+    	Casa c = tabuleiro.getCasas()[p.getPos()];
+    	p.foiComida();
+		c.removePeca(p);
+    }
 
     public int get_x_jog(int num, int peca){
         Peca[] pecas = jogadores.get(num).getPecas();

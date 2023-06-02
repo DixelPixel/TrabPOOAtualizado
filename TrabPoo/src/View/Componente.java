@@ -26,7 +26,7 @@ class Componente extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 int x=e.getX();
                 int y=e.getY();
-                System.out.println(processaCoord(x,y));
+                System.out.println(" x: "+ x + " y: "+ y + " indice corrigido: "+processaCoord(x,y));
 
             }
 

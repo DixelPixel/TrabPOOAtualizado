@@ -1,7 +1,7 @@
 package Model;
 import java.util.*;
 
-public class Casa {
+class Casa {
 
 	private Efeitos efeito;
 	private List<Peca> pecas = new LinkedList<Peca>();

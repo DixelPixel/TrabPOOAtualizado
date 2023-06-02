@@ -1,6 +1,6 @@
 package Model;
 
-public class Jogador implements Comparable<Jogador>{
+class Jogador implements Comparable<Jogador>{
 	private final String nome;
 	private Peca pecas[];
 	private Cores cor;
@@ -77,6 +77,23 @@ public class Jogador implements Comparable<Jogador>{
 				return pecas[i];
 		}
 		return null; 
+		
+	}
+	
+	/*
+	 * retorna a peca do jogador que esta mais a frente no tabuleiro
+	 */
+	protected Peca getPecaMaiorPos() {
+		Peca p = null;
+		for(int i = 0; i < 4; i++) {
+			if(p == null) {
+				p = pecas[i];
+			}
+			else if(p.getPos() < pecas[i].getPos()) {
+				p = pecas[i];
+			}
+		}
+		return p;
 		
 	}
 	

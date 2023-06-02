@@ -1,6 +1,6 @@
 package Model;
 
-public enum Efeitos {
+enum Efeitos {
 	SAIDA,
 	COMUM,
 	ABRIGO,

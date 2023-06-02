@@ -1,6 +1,6 @@
 package Model;
 
-public class Tabuleiro {
+class Tabuleiro {
 //	quantidade de casas do vetor
 	private static final int QTDCASAS = 52;
 //	o vetor de casas tem seu começo na casa de saida da peca azul
@@ -233,7 +233,6 @@ public class Tabuleiro {
 			
 			peca.movePeca(pos, vDado);
 			casaFinal.addPeca(peca);
-			casaFinal.setEfeito();
 			casaAtualPeca.removePeca(peca);
 			
 			/*
@@ -241,6 +240,7 @@ public class Tabuleiro {
 			 * se for o caso, mudar tal efeito
 			 */
 			
+			casaFinal.setEfeito();
 			casaAtualPeca.setEfeito();
 		}
 	}

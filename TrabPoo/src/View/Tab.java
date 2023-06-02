@@ -2,15 +2,8 @@
 package View;
 
 import javax.swing.*;
-import Model.Dado;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import Model.API;
 
 
@@ -108,7 +101,7 @@ public class Tab extends JFrame {
                 	if((x>(49*c2) && x<((49*c2)+49))&&(y > (290 + 40*c1) && (y < (290 + 40*c1 + 40)))) {
                 		i = c1;
                 		j = c2;
-                		System.out.println(c1+ " " + c2);
+//                		System.out.println(c1+ " " + c2);
                 		break;
                 	}
                 }
@@ -122,7 +115,7 @@ public class Tab extends JFrame {
                 	if((x>(294+ 49*c2)) && (x<(294+ 49*c2 + 49)) && (y > 48*c1 && (y < (48*c1 + 48)))) {
                 		i = c1;
                 		j = c2;
-                		System.out.println(c1+ " " + c2);
+//                		System.out.println(c1+ " " + c2);
                 		break;
                 	}
                 }
@@ -135,7 +128,7 @@ public class Tab extends JFrame {
                 	if((x>(441 + c2*49) && x<((441 + c2*49)+49))&&(y > (290 + 40*c1) && (y < (290 + 40*c1 + 40)))) {
                 		i = c1;
                 		j = c2;
-                		System.out.println(c1+ " " + c2);
+//                		System.out.println(c1+ " " + c2);
                 		break;
                 	}
                 }
@@ -149,7 +142,7 @@ public class Tab extends JFrame {
                 	if((x>(294+ 49*c2)) && (x<(294+ 49*c2 + 49)) && (y > 410 + 42*c1 && (y < (410 + 42*c1 + 42)))) {
                 		i = c1;
                 		j = c2;
-                		System.out.println(c1+ " " + c2);
+//                		System.out.println(c1+ " " + c2);
                 		break;
                 	}
                 }

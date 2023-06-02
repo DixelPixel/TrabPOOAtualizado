@@ -1,5 +1,5 @@
 
-import Model.*;
+import Model.API;
 import Controller.*;
 
 public class Main {
@@ -8,22 +8,22 @@ public class Main {
 		Controller c = new Controller();
 		
 		// vermelho
-		c.turno(13, 2);
+		c.turno(13, 6);
+		System.out.println(api.getCorDaVez().name());
+		
+		c.turno(19, 5);
+		System.out.println(api.getCorDaVez().name());
 		
 		//verde
-		c.turno(26, 3);
-		
-		//amarelo
-		c.turno(39, 6);
-		
-		//azul
+		c.turno(26, 6);
 		System.out.println(api.getCorDaVez().name());
-		c.turno(0, 15);
 		
-		// vermelho
-		c.turno(-1, 5);
-
-
-
+		c.turno(32, 6);
+		System.out.println(api.getCorDaVez().name());
+		
+		c.turno(38, 5);
+		System.out.println(api.getCorDaVez().name());
+		
+		
 	}
 }

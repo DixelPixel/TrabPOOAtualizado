@@ -1,7 +1,7 @@
 package Model;
 
 
-public class CasaRetaFinal extends Casa{
+class CasaRetaFinal extends Casa{
 	private final Cores cor;
 
 	

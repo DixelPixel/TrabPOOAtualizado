@@ -1,6 +1,6 @@
 package Model;
 
-public enum GameStateEnum {
+enum GameStateEnum {
 	ATIVO,
 	CONCLUIDO,
 	NOVO

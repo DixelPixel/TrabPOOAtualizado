@@ -1,7 +1,7 @@
 package Model;
 import java.util.Random;
 
-public class Dado {
+class Dado {
 	
 	protected static int rolarDado() {
 		Random g = new Random();

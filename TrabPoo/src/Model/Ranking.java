@@ -2,7 +2,7 @@ package Model;
 
 import java.util.Arrays;
 
-public class Ranking {
+class Ranking {
 	
 
 	protected static Jogador[] calculaRanking(Jogador[] jogadores) {

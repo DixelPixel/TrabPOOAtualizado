@@ -1,6 +1,6 @@
 package Model;
 
-public class Peca {
+class Peca {
 	
 	private final Cores cor;
 	private int pos;
