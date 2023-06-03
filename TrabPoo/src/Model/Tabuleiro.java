@@ -166,6 +166,7 @@ class Tabuleiro {
 		}
 		
 	}
+	
 	private CasaRetaFinal[] procuraCasaRetaFinal( Peca peca) {
 		int count = 0;
 		for(Cores corPeca: Cores.values()) {
@@ -224,24 +225,27 @@ class Tabuleiro {
 			 * a funcão captura retorna nulo caso comer uma peça não seja uma opção, seja
 			 * por não ter peça na casa destino ou por ser abrigo
 			 */
+			
 			pecaComida = casaFinal.captura(peca);
 			if(pecaComida != null) {
 				pecaComida.foiComida();
 				casaFinal.removePeca(pecaComida);
+				
+				peca.movePeca(pos, vDado);
+				casaFinal.addPeca(peca);
+				casaAtualPeca.removePeca(peca);
+				casaFinal.setEfeito();
+				casaAtualPeca.setEfeito();
+				
+				movePecaParaCasaPermitida(peca, 6);
 			}
-			
-			
-			peca.movePeca(pos, vDado);
-			casaFinal.addPeca(peca);
-			casaAtualPeca.removePeca(peca);
-			
-			/*
-			 * essas duas linhas servem para verificar se o efeito da casas afetadas mudou e
-			 * se for o caso, mudar tal efeito
-			 */
-			
-			casaFinal.setEfeito();
-			casaAtualPeca.setEfeito();
+			else {
+				peca.movePeca(pos, vDado);
+				casaFinal.addPeca(peca);
+				casaAtualPeca.removePeca(peca);
+				casaFinal.setEfeito();
+				casaAtualPeca.setEfeito();
+			}
 		}
 	}
 	

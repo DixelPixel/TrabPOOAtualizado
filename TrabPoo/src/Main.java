@@ -8,21 +8,21 @@ public class Main {
 		Controller c = new Controller();
 		
 		// vermelho
-		c.turno(13, 6);
-		System.out.println(api.getCorDaVez().name());
+		c.turno(13, 5);
+//		System.out.println(api.getCorDaVez().name());
 		
-		c.turno(19, 5);
-		System.out.println(api.getCorDaVez().name());
+		// verde
+		c.turno(26, 2);
+//		System.out.println(api.getCorDaVez().name());
 		
-		//verde
-		c.turno(26, 6);
-		System.out.println(api.getCorDaVez().name());
+		// amarelo
+		c.turno(39, 1);
 		
-		c.turno(32, 6);
-		System.out.println(api.getCorDaVez().name());
+		// azul
+		c.turno(0, 1);
 		
-		c.turno(38, 5);
-		System.out.println(api.getCorDaVez().name());
+		// vermelho
+		c.turno(18, 9);
 		
 		
 	}

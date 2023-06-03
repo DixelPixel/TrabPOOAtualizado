@@ -8,7 +8,7 @@ public class Controller {
 	private int rodada = 1;
 	private int n6Seguidos = 0;
 	
-	public void turno(int casaClicada, int vDado) {
+	public boolean turno(int casaClicada, int vDado) {
 		boolean andou;
 		System.out.println("6 seguidos: "+n6Seguidos);
 		
@@ -44,5 +44,6 @@ public class Controller {
 		}
 		System.out.println("Andou? " + andou + " rodada " + rodada);
 		api.printTabuleiro();
+		return andou;
 	}
 }
