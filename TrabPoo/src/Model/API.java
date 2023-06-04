@@ -76,8 +76,8 @@ public class API {
         }
     }
     
-    public void colocaCasaInicial(){
-    	tabuleiro.setPecaCasaDeSaida(jogadorDaVez.getPeca(-1));
+    public boolean colocaCasaInicial(){
+    	return tabuleiro.setPecaCasaDeSaida(jogadorDaVez.getPeca(-1));
     }
     
 	/* retorna true se foi possivel mover a peca e falso caso contrario */
@@ -113,7 +113,16 @@ public class API {
     	p.foiComida();
 		c.removePeca(p);
     }
-
+    
+    public boolean jogadorDaVezTemPecaParaMover() {
+    	Peca pecas[] = jogadorDaVez.getPecas();
+    	boolean ret = false;
+    	for(Peca p: pecas) {
+    		if(p.getPos() != -1)
+    			ret = true;
+    	}
+    	return ret;
+    }
 
     public int getPos(int num, int peca){
         Peca[] pecas = jogadores.get(num).getPecas();

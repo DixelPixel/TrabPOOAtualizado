@@ -7,13 +7,22 @@ public class Controller {
 	private final API api = API.getInstance();
 	private int rodada = 1;
 	private int n6Seguidos = 0;
+	private static Controller instance = null;
+	
+	private Controller() {}
+	
+	public static Controller getInstance() {
+		if(instance == null) {
+			instance = new Controller();
+		}
+		return instance;
+	}
 	
 	public boolean turno(int casaClicada, int vDado) {
 		boolean andou;
-		System.out.println("6 seguidos: "+n6Seguidos);
 		
-		if(rodada == 1 && n6Seguidos == 0) {
-			api.colocaCasaInicial();
+		if(rodada == 1 && n6Seguidos == 0 && vDado == 0) {
+			return api.colocaCasaInicial();
 		}
 		
 		andou = api.movePecaJogador(casaClicada, vDado);
@@ -42,8 +51,21 @@ public class Controller {
 			}
 			
 		}
+		else if(!api.jogadorDaVezTemPecaParaMover()) {
+			api.atualizaJogadorDaVez();
+		}
+		
 		System.out.println("Andou? " + andou + " rodada " + rodada);
 		api.printTabuleiro();
 		return andou;
 	}
+	
+	public String getCorDaVez() {
+		return api.getCorDaVez().name().toLowerCase();
+	}
+	
+	public int getRodada() {
+		return rodada;
+	}
+	
 }

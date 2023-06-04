@@ -5,9 +5,7 @@ import javax.swing.*;
 
 import java.awt.*;
 import Model.API;
-import Model.Observado;
 import Controller.*;
-
 
 public class Tab extends JFrame implements Observador {
     public final int LARG_DEFAULT=1200;
@@ -17,12 +15,13 @@ public class Tab extends JFrame implements Observador {
     private Componente tabuleiro;
     int vDado = 0;
     int pos;
-    Controller controller = new Controller();
+    Controller controller = Controller.getInstance();
 
     public Tab(){
         setSize(LARG_DEFAULT,ALT_DEFAULT);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
+		getContentPane().setBackground(Color.white);
         API api = API.getInstance();
 
 		tabuleiro = new Componente(this);
@@ -30,6 +29,13 @@ public class Tab extends JFrame implements Observador {
 		getContentPane().add(tabuleiro);
 
 		Menu menu = new Menu(this);
+		
+		JLabel retangulo = new JLabel();
+		retangulo.setOpaque(true);
+		retangulo.setBackground(Color.RED);
+		retangulo.setBounds(907, 540, 150, 150);
+        getContentPane().add(retangulo);
+		
 		menu.setBounds(800,0,500,700);
 		getContentPane().add(menu);
 
@@ -61,17 +67,23 @@ public class Tab extends JFrame implements Observador {
     @Override
     public void update(int dado) {
        this.vDado = dado;
-       System.out.println(vDado);
+       System.out.println("Valor tirado no dado "+vDado);
     }
 
     @Override
     public void updateCasa(int casa) {
         this.pos = casa;
-        System.out.println("Aqui!!!");
-        if(this.vDado != 0){
-            controller.turno(casa, this.vDado);
-            vDado = 0;
+        System.out.println("Casa recebida pelo updateCasa: " + casa);
+        System.out.println(controller.getCorDaVez());
+        
+        if(controller.getRodada() == 1) {
+        	controller.turno(casa, 0);
         }
+        if(vDado > 0) {
+        	controller.turno(casa, vDado);
+        }
+        vDado = 0;
+        
     }
 
 }

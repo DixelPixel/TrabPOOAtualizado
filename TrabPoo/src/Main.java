@@ -5,7 +5,7 @@ import Controller.*;
 public class Main {
 	public static void main(String[]args) {
 //		API api = API.getInstance();
-		Controller c = new Controller();
+		Controller c = Controller.getInstance();
 		
 		// vermelho
 //		c.turno(13, 5);

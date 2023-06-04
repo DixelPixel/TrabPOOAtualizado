@@ -21,7 +21,7 @@ public class ConversorCoordenadas {
 	}
 
 	public int[] converteLinearParaCartesiana(int coordLin) {
-		imprimeHash();
+//		imprimeHash();
     	return mapaCoordCart.get(coordLin);
     }
 	
@@ -30,7 +30,7 @@ public class ConversorCoordenadas {
 		for (Map.Entry<Integer, int[]> entry : mapaCoordCart.entrySet()) {
             Integer key = entry.getKey();
             int[] value = entry.getValue();
-            System.out.println(key + " -> x: " + value[0] + " y: " + value[1]);
+//            System.out.println(key + " -> x: " + value[0] + " y: " + value[1]);
         }
 	}
 	
