@@ -35,6 +35,10 @@ public class Controller implements Observado{
 			return api.colocaCasaInicial();
 		}
 		
+		else if(vDado == 0) {
+			return false;
+		}
+		
 		andou = api.movePecaJogador(casaClicada, vDado);
 		if(andou) {
 			if(vDado == 6) {
@@ -63,12 +67,12 @@ public class Controller implements Observado{
 			}
 			
 		}
-		else if(!api.jogadorDaVezTemPecaParaMover() && rodada == 1) {
+		else if(!api.jogadorDaVezTemPecaParaMover()) {
 			api.atualizaJogadorDaVez();
 			notificaObservadores();
 		}
 		
-		System.out.println("Andou? " + andou + " rodada " + rodada);
+		System.out.println("Andou? " + andou + " rodada " + rodada + " Dado: " + vDado);
 //		api.printTabuleiro();
 		return andou;
 	}

@@ -19,6 +19,7 @@ public class Menu extends JComponent implements Observado, Observador {
     private String corJogadorDaVez;
     private Tab frame;
     private JLabel JogadorAtual;
+    private NumeroInputComponent inputVDado;
 
     public Menu(Tab frame){
     	this.frame = frame;
@@ -42,7 +43,9 @@ public class Menu extends JComponent implements Observado, Observador {
 //		Texto falando do jogador e do dado
         JLabel t_AJogar = new JLabel("À Jogar:");
         JLabel t_Resultado = new JLabel("Resultado:");
+        inputVDado = new NumeroInputComponent();
         this.JogadorAtual= new JLabel(controller.getNomeCorDaVez());
+        JLabel dado = new JLabel();
 
 //		Adicionando os elementos na janela
         frame.add(b_NovoJogo);
@@ -53,6 +56,9 @@ public class Menu extends JComponent implements Observado, Observador {
         frame.add(t_AJogar);
         frame.add(JogadorAtual);
         
+        frame.add(inputVDado);
+        
+        inputVDado.setBounds(760, 490, 115, 60);
 
         t_AJogar.setBounds(920, 260, 300, 50);
         t_AJogar.setFont(new Font("Arial", Font.BOLD, 24));
@@ -60,8 +66,6 @@ public class Menu extends JComponent implements Observado, Observador {
         JogadorAtual.setFont(new Font("Arial", Font.BOLD, 24));
         t_Resultado.setBounds(900, 410, 300, 50);
         t_Resultado.setFont(new Font("Arial", Font.BOLD, 24));
-
-        JLabel dado = new JLabel();
 
         dado.setBounds(907, 490, 100, 100);
         dado.setIcon(new ImageIcon(System.getProperty("user.dir") + "/Imagens/Dado6.png"));
@@ -104,6 +108,10 @@ public class Menu extends JComponent implements Observado, Observador {
                 notificaObservadores();
             }
         });
+    }
+    
+    public NumeroInputComponent getComponenteInput() {
+    	return this.inputVDado;
     }
     
     @Override

@@ -180,7 +180,7 @@ class Tabuleiro implements Observado{
 		
 	}
 	
-	private CasaRetaFinal[] procuraCasaRetaFinal( Peca peca) {
+	private CasaRetaFinal[] procuraCasaRetaFinal(Peca peca) {
 		int count = 0;
 		for(Cores corPeca: Cores.values()) {
 			if(peca.getCor() == corPeca) {
@@ -263,8 +263,16 @@ class Tabuleiro implements Observado{
 		}
 	}
 	
-	private boolean corVenceu(Casa ultima) {
+	protected boolean corVenceu(CasaRetaFinal ultima) {
 		return ultima.getPecas().size()==4;
+	}
+	
+	/*
+	 * recebe um parametro que informa qual é o vetor, do vetor de vetores, que
+	 * queremos pegar. Isto é, a cor que queremos consultar a reta final
+	 */
+	protected CasaRetaFinal[] getVetCasaRetaFinal(int idx) {
+		return casasRetaFinal[idx];
 	}
 	
 	private boolean movePecaParaCasaPermitida(Peca peca, int vDado) {
@@ -367,9 +375,14 @@ class Tabuleiro implements Observado{
 			}
 		}else {
 			if(vDado == 5) {
-				setPecaCasaDeSaida(j.getPeca(-1));
-				notificaObservadores();
-				return true;
+				if(setPecaCasaDeSaida(j.getPeca(-1))) {
+					notificaObservadores();
+					return true;
+				}
+				else {
+					return movePecaParaCasaPermitida(j.getPeca(idxCasa), vDado);
+				}
+				
 			}
 		}
 		notificaObservadores();

@@ -16,7 +16,8 @@ public class Tab extends JFrame implements Observador {
     private Componente tabuleiro;
     int vDado = 0;
     int pos;
-    Controller controller;
+    private Controller controller;
+    private API api;
     private Color corDaVez;
     private JLabel retangulo;
 
@@ -28,12 +29,13 @@ public class Tab extends JFrame implements Observador {
 		getContentPane().setBackground(Color.white);
 		
 		controller = Controller.getInstance();
-        API api = API.getInstance();
+        api = API.getInstance();
         Menu menu = new Menu(this);
         tabuleiro = new Componente(this);
         retangulo = new JLabel();
         
         controller.registraObservador(menu);
+        menu.getComponenteInput().registraObservador(this);
 
         corDaVez = controller.getCorDaVez();
 		tabuleiro.setBounds(0,0,800,700);
@@ -83,14 +85,22 @@ public class Tab extends JFrame implements Observador {
         this.pos = casa;
         System.out.println("Casa recebida pelo updateCasa: " + casa);
         System.out.println(controller.getNomeCorDaVez());
+        System.out.println("Dado: " + vDado);
         
-        if(controller.getRodada() == 1) {
-        	controller.turno(casa, 0);
-        }
-        if(vDado > 0) {
+//        if(controller.getRodada() == 1) {
+//        	System.out.println("FALAE ");
+//        	controller.turno(casa, 0);
+//        }
+//        
+//        if(vDado > 0) {
+//        	controller.turno(casa, vDado);
+//        }
+        
+        if(!api.verificaSeAlgumJogadorVenceu()) {
         	controller.turno(casa, vDado);
+        	vDado = 0;
         }
-        vDado = 0;
+        
         
 		/*
 		 * trecho de codigo para atualizar o feedback visual de quem é o jogador da vez

@@ -136,4 +136,25 @@ public class API {
 		Peca[] pecas = jogadores.get(num).getPecas();
 		return pecas[peca].isRetaFinal();
 	}
+	
+	public boolean verificaSeAlgumJogadorVenceu() {
+		int cor;
+		boolean ret = false;
+		for(Jogador j: jogadores) {
+			if(j.getCor() == Cores.VERMELHO) {
+				cor = 0;
+			}
+			else if(j.getCor() == Cores.AMARELO) {
+				cor = 1;
+			}
+			else if(j.getCor() == Cores.VERDE) {
+				cor = 2;
+			}
+			else {
+				cor = 3;
+			}
+			ret = tabuleiro.corVenceu(tabuleiro.getVetCasaRetaFinal(cor)[5]);
+		}
+		return ret;
+	}
 }
