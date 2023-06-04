@@ -7,9 +7,7 @@ public class ConversorCoordenadas {
 	
 	private Map<Integer, int[]> mapaCoordCart = new HashMap<Integer, int[]>();
 
-	private ConversorCoordenadas(){
-
-	}
+	private ConversorCoordenadas(){}
 	
 	public void putMapaCoordCart(int x, int y) {
 //		imprimeHash();
@@ -90,10 +88,16 @@ public class ConversorCoordenadas {
     	int i = -1;
     	int j = -1;
     	int cor = -1;
+		if(x >= 294 && x <= 441 && y >= 290 && y <= 410)
+			return 5;
     	
     	if(x <= 294 && y>=290 && y<= 414) {
     		//seção vermelha
     		cor = 3;
+			if( x >= 49 && y >= 330 && y <= 370){
+				return x/49 - 1;
+			}
+
     		for(int c1 = 0; c1 < 3; c1++){
                 for(int c2 = 0; c2 < 6; c2++){
                 	if((x >= (49*c2) && x <= (( 49*c2 )+49))&&(y >= (290 + 40*c1) && (y <= (290 + 40*c1 + 40)))) {
@@ -108,6 +112,9 @@ public class ConversorCoordenadas {
     	}else if(x >= 294 && x <= 441 && y<= 290) {
     		// seção do verde
     		cor = 4;
+			if( x>= 343 && x <= 392 && y >= 48){
+				return y/48 - 1;
+			}
     		for(int c1 = 0; c1 < 6; c1++){
                 for(int c2 = 0; c2 < 3; c2++){
                 	if((x >= (294+ 49*c2)) && (x <= (294+ 49*c2 + 49)) && (y >= 48*c1 && (y <= (48*c1 + 48)))) {
@@ -121,6 +128,10 @@ public class ConversorCoordenadas {
     	}else if((x >= 441 && x <= 735 && y <= 414 && y >= 290)) {
     		//seção amarela
     		cor =1;
+
+			if( x <= 686 && y >= 330 && y<= 370)
+				return ((x+196-441)/49)-1;
+
     		for(int c1 = 0; c1 < 3; c1++){
                 for(int c2 = 0; c2 < 6; c2++){
                 	if((x >= (441 + c2*49) && x<=((441 + c2*49)+49))&&(y >= (290 + 40*c1) && (y <= (290 + 40*c1 + 40)))) {
@@ -157,5 +168,5 @@ public class ConversorCoordenadas {
 		}
 		return instance;
 	}
-
+	
 }

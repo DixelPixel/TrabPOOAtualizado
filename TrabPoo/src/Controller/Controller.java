@@ -2,14 +2,24 @@ package Controller;
 
 import Model.API;
 import Model.Cores;
+import Model.Observado;
 
-public class Controller {
+import View.Observador;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.awt.Color;
+
+public class Controller implements Observado{
 	private final API api = API.getInstance();
 	private int rodada = 1;
 	private int n6Seguidos = 0;
 	private static Controller instance = null;
+	private List<Observador> observadores;
 	
-	private Controller() {}
+	private Controller() {
+		observadores = new ArrayList<Observador>();
+	}
 	
 	public static Controller getInstance() {
 		if(instance == null) {
@@ -39,6 +49,7 @@ public class Controller {
 					
 					n6Seguidos = 0;
 					api.atualizaJogadorDaVez();
+					notificaObservadores();
 				}
 			}
 			else {
@@ -47,25 +58,66 @@ public class Controller {
 				}
 				n6Seguidos = 0;
 				api.atualizaJogadorDaVez();
+				notificaObservadores();
 				
 			}
 			
 		}
-		else if(!api.jogadorDaVezTemPecaParaMover()) {
+		else if(!api.jogadorDaVezTemPecaParaMover() && rodada == 1) {
 			api.atualizaJogadorDaVez();
+			notificaObservadores();
 		}
 		
 		System.out.println("Andou? " + andou + " rodada " + rodada);
-		api.printTabuleiro();
+//		api.printTabuleiro();
 		return andou;
 	}
 	
-	public String getCorDaVez() {
-		return api.getCorDaVez().name().toLowerCase();
+	public Color getCorDaVez() {
+		String cor = api.getCorDaVez().name();
+		if(cor == Cores.VERMELHO.name()) {
+			return Color.red;
+		}
+		else if(cor == Cores.VERDE.name()) {
+			return Color.green;
+		}
+		else if(cor == Cores.AMARELO.name()) {
+			return Color.yellow;
+		}
+		else {
+			return Color.blue;
+		}
+	}
+	
+	public String getNomeCorDaVez() {
+		return api.getCorDaVez().name();
 	}
 	
 	public int getRodada() {
 		return rodada;
+	}
+
+	@Override
+	public void registraObservador(Observador observador) {
+		// TODO Auto-generated method stub
+		observadores.add(observador);
+		
+	}
+
+	@Override
+	public void removeObservador(Observador observador) {
+		// TODO Auto-generated method stub
+		observadores.remove(observador);
+		
+	}
+
+	@Override
+	public void notificaObservadores() {
+		// TODO Auto-generated method stub
+		for(Observador ob: observadores) {
+			ob.update();
+		}
+		
 	}
 	
 }

@@ -8,6 +8,7 @@ import Model.API;
 import Controller.*;
 
 public class Tab extends JFrame implements Observador {
+	
     public final int LARG_DEFAULT=1200;
     public final int ALT_DEFAULT=700;
     private static final Color BLUE_COLOR = Color.decode("0x6495ED");
@@ -15,25 +16,32 @@ public class Tab extends JFrame implements Observador {
     private Componente tabuleiro;
     int vDado = 0;
     int pos;
-    Controller controller = Controller.getInstance();
+    Controller controller;
+    private Color corDaVez;
+    private JLabel retangulo;
 
     public Tab(){
+    	
         setSize(LARG_DEFAULT,ALT_DEFAULT);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		getContentPane().setBackground(Color.white);
+		
+		controller = Controller.getInstance();
         API api = API.getInstance();
+        Menu menu = new Menu(this);
+        tabuleiro = new Componente(this);
+        retangulo = new JLabel();
+        
+        controller.registraObservador(menu);
 
-		tabuleiro = new Componente(this);
+        corDaVez = controller.getCorDaVez();
 		tabuleiro.setBounds(0,0,800,700);
 		getContentPane().add(tabuleiro);
 
-		Menu menu = new Menu(this);
-		
-		JLabel retangulo = new JLabel();
 		retangulo.setOpaque(true);
-		retangulo.setBackground(Color.RED);
-		retangulo.setBounds(907, 540, 150, 150);
+		retangulo.setBackground(corDaVez);
+		retangulo.setBounds(897, 480, 120, 120);
         getContentPane().add(retangulo);
 		
 		menu.setBounds(800,0,500,700);
@@ -54,13 +62,13 @@ public class Tab extends JFrame implements Observador {
 
     @Override
     public void update() {
-        if(tabuleiro != null){
-            getContentPane().remove(tabuleiro);
-        }
+    	
+        getContentPane().remove(tabuleiro);
         Componente aux = new Componente(this);
         tabuleiro = aux;
         tabuleiro.setBounds(0,0,800,700);
         getContentPane().add(tabuleiro);
+        
         getContentPane().repaint();
     }
 
@@ -74,7 +82,7 @@ public class Tab extends JFrame implements Observador {
     public void updateCasa(int casa) {
         this.pos = casa;
         System.out.println("Casa recebida pelo updateCasa: " + casa);
-        System.out.println(controller.getCorDaVez());
+        System.out.println(controller.getNomeCorDaVez());
         
         if(controller.getRodada() == 1) {
         	controller.turno(casa, 0);
@@ -83,6 +91,18 @@ public class Tab extends JFrame implements Observador {
         	controller.turno(casa, vDado);
         }
         vDado = 0;
+        
+		/*
+		 * trecho de codigo para atualizar o feedback visual de quem é o jogador da vez
+		 */
+        corDaVez = controller.getCorDaVez();
+        getContentPane().remove(retangulo);
+        retangulo = new JLabel();
+        retangulo.setOpaque(true);
+		retangulo.setBackground(corDaVez);
+		retangulo.setBounds(897, 480, 120, 120);
+        getContentPane().add(retangulo);
+        getContentPane().repaint();
         
     }
 

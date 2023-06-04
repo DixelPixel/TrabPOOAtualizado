@@ -22,8 +22,10 @@ class Componente extends JComponent implements Observado {
     private ConversorCoordenadas conversor;
     private int pos;
     private List<Observador> observadores;
+    private API api;
     
     public Componente(Tab frame){
+    	api = API.getInstance();
     	conversor = ConversorCoordenadas.getInstance();
 
         observadores = new ArrayList<>();
@@ -35,7 +37,7 @@ class Componente extends JComponent implements Observado {
                 int x=e.getX();
                 int y=e.getY();
                 int coordenadaLinear = conversor.getCoordLinear(x,y);
-                System.out.println(" x: "+ x + " y: "+ y + " indice corrigido: " + coordenadaLinear);
+//                System.out.println(" x: "+ x + " y: "+ y + " indice corrigido: " + coordenadaLinear);
                 pos = coordenadaLinear;
                 notificaObservadores();
                 conversor.imprimeHash();
@@ -111,7 +113,6 @@ class Componente extends JComponent implements Observado {
 
                     x = 49*j; y = 290 + 40*i;
                     g2d.fillRect(x, y, 49, 40);
-                    System.out.println("Aqui");
                     conversor.putMapaCoordCart(x+5, y+5);
 
                 }else if(i == 0 && j ==1){
@@ -241,17 +242,21 @@ class Componente extends JComponent implements Observado {
     }
 
     protected void desenha_pecas(Graphics2D g, int num,Color cor){
-        API api = API.getInstance();
         int x,y;
         x = 0;
         y = 0;
         for(int i = 0; i < 4;i++) {
             int pos = api.getPos(num, i);
             if(pos >= 0) {
-                int[] coord = conversor.converteLinearParaCartesiana(pos);
-                x = coord[0];
-                y = coord[1];
-                System.out.println("Posição da peça "+i + ": " + x + " "+ y);
+            	if(api.isCasaFinal(num, i)) {
+					/* TO-DO */
+            	}
+            	else {
+            		int[] coord = conversor.converteLinearParaCartesiana(pos);
+            		x = coord[0];
+            		y = coord[1];
+//                System.out.println("Posição da peça "+i + ": " + x + " "+ y);
+            	}
             } else{
                 if(cor == Color.red){
                     x = 25;

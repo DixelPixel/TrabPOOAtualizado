@@ -5,7 +5,6 @@ import View.Tab;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Map;
 
 public class API {
     private static API instance;
@@ -132,4 +131,9 @@ public class API {
     public void adicionaObservadorTabuleiro(Tab tab){
         tabuleiro.registraObservador(tab);
     }
+	
+	public boolean isCasaFinal(int num, int peca){
+		Peca[] pecas = jogadores.get(num).getPecas();
+		return pecas[peca].isRetaFinal();
+	}
 }

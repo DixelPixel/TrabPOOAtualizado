@@ -11,15 +11,20 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Menu extends JComponent implements Observado {
+public class Menu extends JComponent implements Observado, Observador {
     API api = API.getInstance();
     public Controller controller;
     private List<Observador> observadores;
     int vDado;
+    private String corJogadorDaVez;
+    private Tab frame;
+    private JLabel JogadorAtual;
 
     public Menu(Tab frame){
+    	this.frame = frame;
         observadores = new ArrayList<>();
         controller = Controller.getInstance();
+        corJogadorDaVez = controller.getNomeCorDaVez();
         registraObservador(frame);
         //		Criando os botões
         JButton b_NovoJogo=new JButton("Novo Jogo");
@@ -37,7 +42,7 @@ public class Menu extends JComponent implements Observado {
 //		Texto falando do jogador e do dado
         JLabel t_AJogar = new JLabel("À Jogar:");
         JLabel t_Resultado = new JLabel("Resultado:");
-        JLabel t_JogadorAtual = new JLabel(controller.getCorDaVez());
+        this.JogadorAtual= new JLabel(controller.getNomeCorDaVez());
 
 //		Adicionando os elementos na janela
         frame.add(b_NovoJogo);
@@ -46,13 +51,13 @@ public class Menu extends JComponent implements Observado {
         frame.add(b_LancarDados);
         frame.add(t_Resultado);
         frame.add(t_AJogar);
-        frame.add(t_JogadorAtual);
+        frame.add(JogadorAtual);
         
 
         t_AJogar.setBounds(920, 260, 300, 50);
         t_AJogar.setFont(new Font("Arial", Font.BOLD, 24));
-        t_JogadorAtual.setBounds(930, 290, 300, 50);
-        t_JogadorAtual.setFont(new Font("Arial", Font.BOLD, 24));
+        JogadorAtual.setBounds(930, 290, 300, 50);
+        JogadorAtual.setFont(new Font("Arial", Font.BOLD, 24));
         t_Resultado.setBounds(900, 410, 300, 50);
         t_Resultado.setFont(new Font("Arial", Font.BOLD, 24));
 
@@ -125,4 +130,29 @@ public class Menu extends JComponent implements Observado {
             observador.update(vDado);
         }
     }
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		corJogadorDaVez = controller.getNomeCorDaVez();
+		frame.remove(JogadorAtual);
+		JogadorAtual = new JLabel(corJogadorDaVez);
+		JogadorAtual.setBounds(930, 290, 300, 50);
+	    JogadorAtual.setFont(new Font("Arial", Font.BOLD, 24));
+		frame.add(JogadorAtual);
+		frame.repaint();
+		
+	}
+
+	@Override
+	public void update(int dado) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateCasa(int casa) {
+		// TODO Auto-generated method stub
+		
+	}
 }
