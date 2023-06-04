@@ -136,6 +136,18 @@ public class API {
 		Peca[] pecas = jogadores.get(num).getPecas();
 		return pecas[peca].isRetaFinal();
 	}
+
+	public boolean retCasaFinal(int pos){
+		Peca[] pecas = jogadorDaVez.getPecas();
+		if(pos <=5){
+			for(Peca peca: pecas){
+				if(peca.isRetaFinal() && peca.getPos() == pos){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	
 	public boolean verificaSeAlgumJogadorVenceu() {
 		int cor;

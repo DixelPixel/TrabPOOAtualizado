@@ -64,8 +64,8 @@ class Peca {
 	protected void movePecaRetaFinal(int qtd, int pos) {
 		this.retaFinal = true;
 		this.casasPercorridas += qtd;
+		System.out.println("Pos atual da peca: " + pos);
 		this.pos = pos;
-	
 	}
 	
 	

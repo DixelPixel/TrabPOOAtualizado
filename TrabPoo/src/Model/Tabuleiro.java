@@ -166,14 +166,15 @@ class Tabuleiro implements Observado{
 		return false;
 	}
 	private void verificaRetaFinal(Peca peca, int vDado) {
-		if(peca.getCasasPercorridas()<=51) {
+		if(peca.getCasasPercorridas() <= 51) {
 			Casa casaAtualPeca = casas[peca.getPos()];
 			casaAtualPeca.removePeca(peca);
 			casaAtualPeca.setEfeito();
 		}
 		/* se passar para as casas finais, então continua a função  */
-		
+
 		if(peca.getCasasPercorridas()+vDado > 51) {
+			System.out.println("Reta Final");
 			/* se passar para as casas finais, então continua a função  */
 			movePecaRetaFinal(peca,vDado);
 		}
@@ -193,9 +194,10 @@ class Tabuleiro implements Observado{
 	}
 	private void movePecaRetaFinal(Peca p, int vDado) {
 		
-		int posAtual, restante, casasPercorridas;
+		int posAtual, restante, casasPercorridas, offset;
+		offset = 0;
 		
-		casasPercorridas = p.getCasasPercorridas();
+		casasPercorridas = p.getCasasPercorridas() - 1;
 		if(!p.isRetaFinal()) {
 			posAtual = p.getCasasPercorridas() - 51;
 			restante = 57 - casasPercorridas;
@@ -205,13 +207,17 @@ class Tabuleiro implements Observado{
 			restante = 5 - posAtual;
 		}
 		CasaRetaFinal[] retaCor = procuraCasaRetaFinal(p);
-				
-		if(vDado <= restante) { 
-			p.movePecaRetaFinal(vDado,posAtual+vDado);
+		if(!p.isRetaFinal())
+			offset = 1;
+
+		if(vDado <= restante) {
+			p.movePecaRetaFinal(vDado,posAtual+vDado-offset);
 			retaCor[p.getPos()].addPeca(p);
 			if(posAtual > -1)
 				retaCor[posAtual].removePeca(p);
+			System.out.println("Reta final trajeto  " + retaCor.length);
 		}
+		notificaObservadores();
 		
 		
 	}
@@ -344,8 +350,9 @@ class Tabuleiro implements Observado{
 					 * nesse caso, o jogador está tentando mover uma peça que está
 					 * na barreira então podemos move-la
 					 */
+					boolean x = movePecaParaCasaPermitida(j.getPeca(idxCasa), vDado);
 					notificaObservadores();
-					return movePecaParaCasaPermitida(j.getPeca(idxCasa), vDado);
+					return x;
 				}
 				else {
 					/*
@@ -380,7 +387,9 @@ class Tabuleiro implements Observado{
 					return true;
 				}
 				else {
-					return movePecaParaCasaPermitida(j.getPeca(idxCasa), vDado);
+					boolean x =movePecaParaCasaPermitida(j.getPeca(idxCasa), vDado);
+					notificaObservadores();
+					return x;
 				}
 				
 			}

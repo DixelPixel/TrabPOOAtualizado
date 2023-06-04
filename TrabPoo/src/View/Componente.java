@@ -249,15 +249,14 @@ class Componente extends JComponent implements Observado {
             int pos = api.getPos(num, i);
             if(pos >= 0) {
                 if(api.isCasaFinal(num, i)) {
-                    System.out.printf("Casa final da cor %s casa %d", cor,pos);
 					/* TO-DO */
                     if(cor == Color.RED){
-                        x = 49*(pos) + 5;
+                        x = 49*(pos+1) + 5;
                         y = 335;
 
                     } else if (cor == Color.GREEN){
                         x = 345;
-                        y = 48*(pos);
+                        y = 48*(pos+1);
 
                     } else if (cor == Color.ORANGE) {
                         x = 637 - (pos * 49);

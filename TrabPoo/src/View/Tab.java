@@ -87,14 +87,7 @@ public class Tab extends JFrame implements Observador {
         System.out.println(controller.getNomeCorDaVez());
         System.out.println("Dado: " + vDado);
         
-//        if(controller.getRodada() == 1) {
-//        	System.out.println("FALAE ");
-//        	controller.turno(casa, 0);
-//        }
-//        
-//        if(vDado > 0) {
-//        	controller.turno(casa, vDado);
-//        }
+
         
         if(!api.verificaSeAlgumJogadorVenceu()) {
         	controller.turno(casa, vDado);
