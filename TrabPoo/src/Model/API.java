@@ -114,13 +114,7 @@ public class API {
     }
     
     public boolean jogadorDaVezTemPecaParaMover() {
-    	Peca pecas[] = jogadorDaVez.getPecas();
-    	boolean ret = false;
-    	for(Peca p: pecas) {
-    		if(p.getPos() != -1)
-    			ret = true;
-    	}
-    	return ret;
+    	return jogadorDaVez.verificaSeTemPeca();
     }
 
     public int getPos(int num, int peca){

@@ -20,6 +20,7 @@ public class Menu extends JComponent implements Observado, Observador {
     private Tab frame;
     private JLabel JogadorAtual;
     private NumeroInputComponent inputVDado;
+    private JButton b_LancarDados;
 
     public Menu(Tab frame){
     	this.frame = frame;
@@ -31,14 +32,15 @@ public class Menu extends JComponent implements Observado, Observador {
         JButton b_NovoJogo=new JButton("Novo Jogo");
         JButton b_CarregarJogo=new JButton("Carregar Jogo");
         JButton b_SalvarJogo=new JButton("Salvar Jogo");
-        JButton b_LancarDados=new JButton("Lançar Dados");
+        b_LancarDados = new JButton("Lançar Dados");
 
 //		Definindo tamanho dos botões
         b_NovoJogo.setBounds(800,50,325, 50);
         b_CarregarJogo.setBounds(800,120,325, 50);
         b_SalvarJogo.setBounds(800,190,325, 50);
         b_LancarDados.setBounds(800,350,325, 50);
-
+        
+        System.out.println("VALOR DO DADO MENU: " + vDado);
 
 //		Texto falando do jogador e do dado
         JLabel t_AJogar = new JLabel("À Jogar:");
@@ -142,6 +144,7 @@ public class Menu extends JComponent implements Observado, Observador {
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
+		
 		corJogadorDaVez = controller.getNomeCorDaVez();
 		frame.remove(JogadorAtual);
 		JogadorAtual = new JLabel(corJogadorDaVez);

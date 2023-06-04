@@ -80,7 +80,7 @@ class Jogador implements Comparable<Jogador>{
 		
 	}
 	
-	/*
+	/**
 	 * retorna a peca do jogador que esta mais a frente no tabuleiro
 	 */
 	protected Peca getPecaMaiorPos() {
@@ -109,17 +109,22 @@ class Jogador implements Comparable<Jogador>{
 		return s;
 	}
 	
+	/*
+	 * essa funcao informa se o jogador tem peça no jogo para mover ou se deve tirar
+	 * 5 para remover a peça da casa inicial para só então jogar
+	 */
 	protected boolean verificaSeTemPeca() {
-		/*
-		 * essa funcao informa se o jogador tem peça no jogo para mover ou se deve tirar
-		 * 5 para remover a peça da casa inicial para só então jogar
-		 */
+		boolean pNaUltimaCasa, ret = false;
 		for(Peca p: pecas) {
-			if(p.getPos() > -1) {
-				return true;
+			pNaUltimaCasa = p.isRetaFinal() && p.getPos() == 5;
+			if(pNaUltimaCasa) {
+				ret = false;
+			}
+			else if(p.getPos() > -1) {
+				ret = true;
 			}
 		}
-		return false;
+		return ret;
 	}
 	
 	private int calculaSomaDist() {

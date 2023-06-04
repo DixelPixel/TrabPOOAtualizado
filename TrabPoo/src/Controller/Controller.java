@@ -67,14 +67,26 @@ public class Controller implements Observado{
 			}
 			
 		}
-		else if(!api.jogadorDaVezTemPecaParaMover()) {
-			api.atualizaJogadorDaVez();
-			notificaObservadores();
+		else {
+			passaVez(vDado);
 		}
 		
 		System.out.println("Andou? " + andou + " rodada " + rodada + " Dado: " + vDado);
 //		api.printTabuleiro();
 		return andou;
+	}
+	
+	/**
+	 * verifica se o jogador tem peca para mover e se não tiver, passa a vez,
+	 * notificando os observadores
+	 */
+	public boolean passaVez(int vDado) {
+		boolean ret = api.jogadorDaVezTemPecaParaMover();
+		if(!ret && vDado != 5) {
+			api.atualizaJogadorDaVez();
+			notificaObservadores();
+		}
+		return !ret;
 	}
 	
 	public Color getCorDaVez() {

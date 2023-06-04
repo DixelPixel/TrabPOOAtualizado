@@ -369,6 +369,7 @@ class Tabuleiro implements Observado{
 						 * nesse caso o jogador saiu com uma peça da casa inicial e
 						 * essa foi a sua jogada
 						 */
+						System.out.println("ALOOOO");
 						notificaObservadores();
 						return true;
 					}

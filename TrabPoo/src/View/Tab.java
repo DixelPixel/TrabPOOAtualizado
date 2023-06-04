@@ -78,22 +78,21 @@ public class Tab extends JFrame implements Observador {
     public void update(int dado) {
        this.vDado = dado;
        System.out.println("Valor tirado no dado "+vDado);
+       
+       controller.passaVez(dado);
+    	   
     }
 
     @Override
     public void updateCasa(int casa) {
         this.pos = casa;
         System.out.println("Casa recebida pelo updateCasa: " + casa);
-        System.out.println(controller.getNomeCorDaVez());
         System.out.println("Dado: " + vDado);
-        
-
         
         if(!api.verificaSeAlgumJogadorVenceu()) {
         	controller.turno(casa, vDado);
         	vDado = 0;
         }
-        
         
 		/*
 		 * trecho de codigo para atualizar o feedback visual de quem é o jogador da vez
