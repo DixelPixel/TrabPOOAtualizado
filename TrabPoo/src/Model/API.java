@@ -117,6 +117,7 @@ public class API {
     	return jogadorDaVez.verificaSeTemPeca();
     }
 
+	/** retorna a posição de 1 das 4 peças do jogador */
     public int getPos(int num, int peca){
         Peca[] pecas = jogadores.get(num).getPecas();
         return pecas[peca].getPos();
