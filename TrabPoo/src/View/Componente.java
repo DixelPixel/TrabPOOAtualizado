@@ -113,21 +113,21 @@ class Componente extends JComponent implements Observado {
 
                     x = 49*j; y = 290 + 40*i;
                     g2d.fillRect(x, y, 49, 40);
-                    conversor.putMapaCoordCart(x+5, y+5);
+                    conversor.putMapaCoordCart(x+2, y+2);
 
                 }else if(i == 0 && j ==1){
                     g2d.setColor(RED_COLOR);
 
                     x = 49*j; y = 290 + 40*i;
                     g2d.fillRect(x, y, 49, 40);
-                    conversor.putMapaCoordCart(x+5, y+5);
+                    conversor.putMapaCoordCart(x+2, y+2);
 
                 }
                 g2d.setColor(Color.black);
 
                 x = 49*j; y = 290 + 40*i;
                 g2d.drawRect(x, y, 49, 40);
-                conversor.putMapaCoordCart(x+5, y+5);
+                conversor.putMapaCoordCart(x+2, y+2);
             }
         }
 
@@ -140,19 +140,19 @@ class Componente extends JComponent implements Observado {
 
                     x = 441+49*j; y = 290 + 40*i;
                     g2d.fillRect(x, y, 49, 40);
-                    conversor.putMapaCoordCart(x+5, y+5);
+                    conversor.putMapaCoordCart(x+2, y+2);
                 }else if(i == 2 && j ==4){
                     g2d.setColor(Color.YELLOW);
 
                     x = 441+49*j; y = 290 + 40*i;
                     g2d.fillRect(x, y, 49, 40);
-                    conversor.putMapaCoordCart(x+5, y+5);
+                    conversor.putMapaCoordCart(x+2, y+2);
                 }
                 g2d.setColor(Color.black);
 
                 x = 441+49*j; y = 290 + 40*i;
                 g2d.drawRect(x, y, 49, 40);
-                conversor.putMapaCoordCart(x+5, y+5);
+                conversor.putMapaCoordCart(x+2, y+2);
             }
         }
 
@@ -165,19 +165,19 @@ class Componente extends JComponent implements Observado {
 
                     x = 294+ 49*j; y = 48*i;
                     g2d.fillRect(x, y, 49, 48);
-                    conversor.putMapaCoordCart(x+5, y+5);
+                    conversor.putMapaCoordCart(x+2, y+2);
                 }else if(i == 1 && j ==2){
                     g2d.setColor(Color.GREEN.darker());
 
                     x = 294+ 49*j; y = 48*i;
                     g2d.fillRect(x, y, 49, 48);
-                    conversor.putMapaCoordCart(x+5, y+5);
+                    conversor.putMapaCoordCart(x+2, y+2);
                 }
                 g2d.setColor(Color.black);
 
                 x = 294+ 49*j; y = 48*i;
                 g2d.drawRect(x, y, 49, 48);
-                conversor.putMapaCoordCart(x+5, y+5);
+                conversor.putMapaCoordCart(x+2, y+2);
             }
         }
 
@@ -190,19 +190,19 @@ class Componente extends JComponent implements Observado {
 
                     x = 294+ 49*j; y = 410 + 42*i;
                     g2d.fillRect(x, y, 49, 42);
-                    conversor.putMapaCoordCart(x+5, y+5);
+                    conversor.putMapaCoordCart(x+2, y+2);
                 }else if(i == 4 && j ==0){
                     g2d.setColor(BLUE_COLOR);
 
                     x = 294+ 49*j; y = 410 + 42*i;
                     g2d.fillRect(x, y, 49, 42);
-                    conversor.putMapaCoordCart(x+5, y+5);
+                    conversor.putMapaCoordCart(x+2, y+2);
                 }
                 g2d.setColor(Color.black);
 
                 x = 294+ 49*j; y = 410 + 42*i;
                 g2d.drawRect(x, y, 49, 42);
-                conversor.putMapaCoordCart(x+5, y+5);
+                conversor.putMapaCoordCart(x+2, y+2);
             }
         }
 
@@ -248,9 +248,26 @@ class Componente extends JComponent implements Observado {
         for(int i = 0; i < 4;i++) {
             int pos = api.getPos(num, i);
             if(pos >= 0) {
-            	if(api.isCasaFinal(num, i)) {
+                if(api.isCasaFinal(num, i)) {
+                    System.out.printf("Casa final da cor %s casa %d", cor,pos);
 					/* TO-DO */
-            	}
+                    if(cor == Color.RED){
+                        x = 49*(pos) + 5;
+                        y = 335;
+
+                    } else if (cor == Color.GREEN){
+                        x = 345;
+                        y = 48*(pos);
+
+                    } else if (cor == Color.ORANGE) {
+                        x = 637 - (pos * 49);
+                        y = 335;
+                    } else if (cor == Color.BLUE) {
+                        x = 345;
+                        y = 578 - (pos*42);
+                    }
+
+                }
             	else {
             		int[] coord = conversor.converteLinearParaCartesiana(pos);
             		x = coord[0];
@@ -311,6 +328,7 @@ class Componente extends JComponent implements Observado {
         }
 
     }
+
 
     @Override
     public void registraObservador(Observador observador) {

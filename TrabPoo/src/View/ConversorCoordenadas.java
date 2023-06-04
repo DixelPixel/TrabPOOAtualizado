@@ -94,7 +94,8 @@ public class ConversorCoordenadas {
     	if(x <= 294 && y>=290 && y<= 414) {
     		//seção vermelha
     		cor = 3;
-			if( x >= 49 && y >= 330 && y <= 370){
+			if( x >= 52 && y >= 333 && y < 372){
+				System.out.printf(" Índice da casa final: \n",x/49-1);
 				return x/49 - 1;
 			}
 
@@ -112,7 +113,8 @@ public class ConversorCoordenadas {
     	}else if(x >= 294 && x <= 441 && y<= 290) {
     		// seção do verde
     		cor = 4;
-			if( x>= 343 && x <= 392 && y >= 48){
+			if( x>= 346 && x <= 393 && y >= 51){
+				System.out.printf(" Índice da casa final: \n",x/48-1);
 				return y/48 - 1;
 			}
     		for(int c1 = 0; c1 < 6; c1++){
@@ -129,8 +131,10 @@ public class ConversorCoordenadas {
     		//seção amarela
     		cor =1;
 
-			if( x <= 686 && y >= 330 && y<= 370)
-				return ((x+196-441)/49)-1;
+			if(x <= 689 && y >= 333 && y< 372) {
+				System.out.printf(" Índice da casa final: \n",3 - (((x - 441) / 49) - 1));
+				return 3 - (((x - 441) / 49) - 1);
+			}
 
     		for(int c1 = 0; c1 < 3; c1++){
                 for(int c2 = 0; c2 < 6; c2++){
@@ -146,6 +150,10 @@ public class ConversorCoordenadas {
     	}else if(x >= 294 && x <= 441 && y >= 410) {
     		//sessão azul
     		cor =2;
+			if( x>= 347 && x <= 390 && y <= 622) {
+				System.out.printf(" Índice da casa final: \n",(5 - ((y - 410) / 42) - 1));
+				return (5 - ((y - 410) / 42) - 1);
+			}
     		for(int c1 = 0; c1 < 6; c1++){
                 for(int c2 = 0; c2 < 3; c2++){
                 	if((x>=(294+ 49*c2)) && (x<=(294+ 49*c2 + 49)) && (y >= 410 + 42*c1 && (y <= (410 + 42*c1 + 42)))) {
