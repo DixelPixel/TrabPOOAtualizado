@@ -1,5 +1,7 @@
 package Model;
 
+import View.Tab;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -112,12 +114,13 @@ public class API {
 		c.removePeca(p);
     }
 
-    public int get_x_jog(int num, int peca){
+
+    public int getPos(int num, int peca){
         Peca[] pecas = jogadores.get(num).getPecas();
-        return pecas[peca].getX();
+        return pecas[peca].getPos();
     }
-    public int get_y_jog(int num, int peca) {
-        Peca[] pecas = jogadores.get(num).getPecas();
-        return pecas[peca].getY();
+
+    public void adicionaObservadorTabuleiro(Tab tab){
+        tabuleiro.registraObservador(tab);
     }
 }

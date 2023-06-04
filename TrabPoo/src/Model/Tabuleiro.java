@@ -1,11 +1,17 @@
 package Model;
 
-class Tabuleiro {
+import View.Observador;
+
+import java.util.ArrayList;
+import java.util.List;
+
+class Tabuleiro implements Observado{
 //	quantidade de casas do vetor
 	private static final int QTDCASAS = 52;
 //	o vetor de casas tem seu começo na casa de saida da peca azul
 	private Casa casas[];
 	private CasaRetaFinal[][] casasRetaFinal;
+	private List<Observador> observadores;
 	
 	protected Tabuleiro() {
 		casas = new Casa[QTDCASAS];
@@ -58,6 +64,7 @@ class Tabuleiro {
 			}
 			n++;
 		}
+		observadores = new ArrayList<>();
 	}
 	public Casa[] getCasas() {
         return casas;
@@ -96,6 +103,7 @@ class Tabuleiro {
 			peca.setPos(0);
 			peca.setCasasPercorridas(1);
 			casas[0].addPeca(peca);
+			notificaObservadores();
 			return true;
 		case VERMELHO:
 			//a cor vermelha tem sua casa de saida no indice 13
@@ -104,22 +112,27 @@ class Tabuleiro {
 			peca.setPos(13);
 			peca.setCasasPercorridas(1);
 			casas[13].addPeca(peca);
+			notificaObservadores();
 			return true;
 		case VERDE:
 			//a cor verde tem sua casa de saida no indice 26
-			if(casas[26].getPeca(corP) != null)
+			if(casas[26].getPeca(corP) != null) {
 				return false;
+			}
 			peca.setPos(26);
 			peca.setCasasPercorridas(1);
 			casas[26].addPeca(peca);
+			notificaObservadores();
 			return true;
 		case AMARELO:
 			//a cor amarela tem sua casa de saida no indice 39
-			if(casas[39].getPeca(corP) != null)
+			if(casas[39].getPeca(corP) != null) {
 				return false;
+			}
 			peca.setPos(39);
 			peca.setCasasPercorridas(1);
 			casas[39].addPeca(peca);
+			notificaObservadores();
 			return true;
 		}
 		return false;
@@ -211,7 +224,7 @@ class Tabuleiro {
 		
 		verificaRetaFinal(peca, vDado);
 		
-		if(peca.isRetaFinal() == false) {
+		if(!peca.isRetaFinal()) {
 			Casa casaAtualPeca, casaFinal; 
 			Peca pecaComida;
 			int pos;
@@ -246,6 +259,7 @@ class Tabuleiro {
 				casaFinal.setEfeito();
 				casaAtualPeca.setEfeito();
 			}
+			notificaObservadores();
 		}
 	}
 	
@@ -275,10 +289,12 @@ class Tabuleiro {
 			 * nesse caso, tem um impedimento para movimentação na casa imediatamente
 			 * posterior a casa atual da peca, e portanto essa peca nao pode ser mexida.
 			 */
+			notificaObservadores();
 			return false;
 		}
 		else {
 			executaOperacoesParaMover(peca, pos);
+			notificaObservadores();
 			return true;
 		}
 	}
@@ -300,10 +316,12 @@ class Tabuleiro {
 				 * inicial tem que tirar 5 no dado
 				 */
 				if(vDado == 5) {
-					if(setPecaCasaDeSaida(j.getPeca(idxCasa)))
+					if(setPecaCasaDeSaida(j.getPeca(idxCasa))) {
 						/*nesse caso, o jogador saiu da casa inicial com uma peça, ou seja,
 						jogada feita*/
+						notificaObservadores();
 						return true;
+					}
 				}
 			}
 			
@@ -318,14 +336,17 @@ class Tabuleiro {
 					 * nesse caso, o jogador está tentando mover uma peça que está
 					 * na barreira então podemos move-la
 					 */
+					notificaObservadores();
 					return movePecaParaCasaPermitida(j.getPeca(idxCasa), vDado);
 				}
-				else
+				else {
 					/*
-					 * se o jogador está tentando mover uma peça em um casa que 
+					 * se o jogador está tentando mover uma peça em um casa que
 					 * não é barreira, não acontece nada
 					 */
+					notificaObservadores();
 					return false;
+				}
 			}else {
 				if(vDado == 5) {
 					if(setPecaCasaDeSaida(j.getPeca(-1))) {
@@ -333,19 +354,42 @@ class Tabuleiro {
 						 * nesse caso o jogador saiu com uma peça da casa inicial e
 						 * essa foi a sua jogada
 						 */
+						notificaObservadores();
 						return true;
 					}
 				}
 				if(j.getPeca(idxCasa) != null) {
-					return movePecaParaCasaPermitida(j.getPeca(idxCasa), vDado);
+					boolean a;
+					a = movePecaParaCasaPermitida(j.getPeca(idxCasa), vDado);
+					notificaObservadores();
+					return a;
 				}
 			}
 		}else {
 			if(vDado == 5) {
 				setPecaCasaDeSaida(j.getPeca(-1));
+				notificaObservadores();
 				return true;
 			}
 		}
+		notificaObservadores();
 		return false;
+	}
+
+	@Override
+	public void registraObservador(Observador observador) {
+		observadores.add(observador);
+	}
+
+	@Override
+	public void removeObservador(Observador observador) {
+		observadores.remove(observador);
+	}
+
+	@Override
+	public void notificaObservadores() {
+		for(Observador observador : observadores){
+			observador.update();
+		}
 	}
 }

@@ -3,23 +3,25 @@ package View;
 import java.util.*;
 
 public class ConversorCoordenadas {
+	private static ConversorCoordenadas instance;
 	
 	private Map<Integer, int[]> mapaCoordCart = new HashMap<Integer, int[]>();
-	
-//	public ConversorCoordenadas() {
-//		mapaCoordCart.put(0, new int[] {295,578});
-//		mapaCoordCart.put(1, new int[] {295,537});
-//		mapaCoordCart.put(2, new int[] {295,495});
-//		mapaCoordCart.put(3, new int[] {295,453});
-//		mapaCoordCart.put(4, new int[] {295,453});
-//	}
+
+	private ConversorCoordenadas(){
+
+	}
 	
 	public void putMapaCoordCart(int x, int y) {
 //		imprimeHash();
-		mapaCoordCart.put(getCoordLinear(x,y), new int [] {x, y});
+		int pos = getCoordLinear(x,y);
+		if(pos == -1){
+			return;
+		}
+		mapaCoordCart.put(pos, new int [] {x, y});
 	}
 
 	public int[] converteLinearParaCartesiana(int coordLin) {
+		imprimeHash();
     	return mapaCoordCart.get(coordLin);
     }
 	
@@ -94,7 +96,7 @@ public class ConversorCoordenadas {
     		cor = 3;
     		for(int c1 = 0; c1 < 3; c1++){
                 for(int c2 = 0; c2 < 6; c2++){
-                	if((x >= (49*c2) && x <= ((49*c2)+49))&&(y >= (290 + 40*c1) && (y <= (290 + 40*c1 + 40)))) {
+                	if((x >= (49*c2) && x <= (( 49*c2 )+49))&&(y >= (290 + 40*c1) && (y <= (290 + 40*c1 + 40)))) {
                 		i = c1;
                 		j = c2;
 //                		System.out.println(c1+ " " + c2);
@@ -148,5 +150,12 @@ public class ConversorCoordenadas {
     	return processaCoord(i,j,cor);
     	
     }
-	
+
+	public static synchronized ConversorCoordenadas getInstance(){
+		if(instance == null){
+			instance = new ConversorCoordenadas();
+		}
+		return instance;
+	}
+
 }

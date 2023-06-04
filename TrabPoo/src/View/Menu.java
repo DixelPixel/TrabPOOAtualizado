@@ -1,21 +1,31 @@
 package View;
 
 import Model.API;
+import Controller.Controller;
+import Model.Observado;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Menu extends JComponent {
+public class Menu extends JComponent implements Observado {
     API api = API.getInstance();
+    public Controller controller;
+    private List<Observador> observadores;
+    int vDado;
 
     public Menu(Tab frame){
+        observadores = new ArrayList<>();
+        registraObservador(frame);
         //		Criando os botões
         JButton b_NovoJogo=new JButton("Novo Jogo");
         JButton b_CarregarJogo=new JButton("Carregar Jogo");
         JButton b_SalvarJogo=new JButton("Salvar Jogo");
         JButton b_LancarDados=new JButton("Lançar Dados");
+        controller = new Controller();
 
 //		Definindo tamanho dos botões
         b_NovoJogo.setBounds(800,50,325, 50);
@@ -81,14 +91,31 @@ public class Menu extends JComponent {
         // Adicione um ActionListener ao botão Lançar Dados
         b_LancarDados.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int vDado = api.rolarDado();
+                vDado = api.rolarDado();
                 String projectPath = System.getProperty("user.dir");
                 String dadoPngPath = projectPath + "/Imagens/Dado" + vDado + ".png";
                 ImageIcon iconeDado = new ImageIcon(dadoPngPath);
                 dado.setIcon(iconeDado);
+                notificaObservadores();
             }
         });
     }
 
 
+    @Override
+    public void registraObservador(Observador observador) {
+        observadores.add(observador);
+    }
+
+    @Override
+    public void removeObservador(Observador observador) {
+        observadores.remove(observador);
+    }
+
+    @Override
+    public void notificaObservadores() {
+        for(Observador observador : observadores){
+            observador.update(vDado);
+        }
+    }
 }
