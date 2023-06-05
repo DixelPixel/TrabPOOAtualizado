@@ -10,7 +10,9 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JComponent;
 
 class Componente extends JComponent implements Observado {
@@ -320,12 +322,53 @@ class Componente extends JComponent implements Observado {
                     }
                 }
             }
+            if(pos>0){
+                if(api.retBarricada(retNumJog(cor),i)){
+                    g.setColor(Color.GREEN);
+                    g.drawOval(x, y, 35, 35);
+                    g.setColor(Color.GREEN);
+                    g.fillOval(x, y, 35, 35);
+
+                    g.setColor(Color.white);
+                    g.drawOval(x + 2, y + 3, 30, 30);
+                    g.setColor(Color.white);
+                    g.fillOval(x + 2, y + 3, 30, 30);
+
+                    g.setColor(Color.green);
+                    g.drawOval(x + 5, y + 6, 25, 25);
+                    g.setColor(Color.green);
+                    g.fillOval(x + 5, y + 6, 25, 25);
+                    continue;
+                }else if(api.retAbrigoMaisUmaPeca(retNumJog(cor),i)){
+                    System.out.println();
+                    g.setColor(Color.GREEN);
+                    g.drawOval(x, y, 35, 35);
+                    g.setColor(Color.GREEN);
+                    g.fillOval(x, y, 35, 35);
+
+                    g.setColor(Color.RED);
+                    g.drawOval(x + 2, y + 3, 30, 30);
+                    g.setColor(Color.RED);
+                    g.fillOval(x + 2, y + 3, 30, 30);
+                    continue;
+                }
+            }
             g.setColor(Color.black);
             g.drawOval(x, y, 35, 35);
             g.setColor(cor);
             g.fillOval(x, y, 35, 35);
+
         }
 
+    }
+
+    public int retNumJog(Color cor){
+        Map<Color, Integer> hashJog = new HashMap<>();
+        hashJog.put(Color.RED,0);
+        hashJog.put(Color.GREEN,1);
+        hashJog.put(Color.ORANGE,2);
+        hashJog.put(Color.blue,3);
+        return hashJog.get(cor);
     }
 
 

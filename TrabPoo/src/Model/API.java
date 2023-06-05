@@ -143,7 +143,27 @@ public class API {
 		}
 		return false;
 	}
-	
+	public boolean retBarricada(int jogNum, int pecaNum){
+		Peca[] pecas = jogadores.get(jogNum).getPecas();
+		Peca pecaEsc = pecas[pecaNum];
+		int pos = pecaEsc.getPos();
+		if(!pecaEsc.isRetaFinal()){
+			Casa casa_peca = tabuleiro.getCasas()[pos];
+			return casa_peca.getEfeito() == Efeitos.BARREIRA;
+		}
+		return false;
+	}
+	public boolean retAbrigoMaisUmaPeca(int jogNum, int pecaNum){
+		Peca[] pecas = jogadores.get(jogNum).getPecas();
+		Peca pecaEsc = pecas[pecaNum];
+		int pos = pecaEsc.getPos();
+		if(!pecaEsc.isRetaFinal()){
+			Casa casa_peca = tabuleiro.getCasas()[pos];
+			int numPecasCasa = casa_peca.getNumPecas();
+			return (casa_peca.getEfeito() == Efeitos.SAIDA || casa_peca.getEfeito() == Efeitos.ABRIGO) && numPecasCasa > 1;
+		}
+		return false;
+	}
 	public boolean verificaSeAlgumJogadorVenceu() {
 		int cor;
 		boolean ret = false;
