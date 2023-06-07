@@ -27,6 +27,10 @@ public class Controller implements Observado{
 		}
 		return instance;
 	}
+	public void reinicia(){
+		rodada = 1;
+		notificaObservadores();
+	}
 	
 	public boolean turno(int casaClicada, int vDado) {
 		boolean andou;

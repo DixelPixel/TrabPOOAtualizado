@@ -5,12 +5,14 @@ import View.Tab;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import Controller.Controller;
 
 public class API {
     private static API instance;
     private Tabuleiro tabuleiro;
     private List<Jogador> jogadores = new LinkedList<Jogador>();
     private Jogador jogadorDaVez;
+	private Jogador[] ranking;
 
     private API(){
         this.tabuleiro = new Tabuleiro();
@@ -26,7 +28,22 @@ public class API {
             instance = new API();
         return instance;
     }
-    
+    public void resetaJogo(){
+		/*Reseta o Tabuleiro e o controller, e cria novos jogadores e peças.*/
+		/* TODO: reiniciar jogador da vez no Retângulo do dado @Miguel */
+		this.tabuleiro = new Tabuleiro();
+		resetaJogadores();
+		Controller controller = Controller.getInstance();
+		controller.reinicia();
+	}
+	public void resetaJogadores(){
+		jogadores.clear();
+		jogadores.add(new Jogador("Jogador Vermelho", Cores.VERMELHO));
+		jogadores.add(new Jogador("Jogador Verde", Cores.VERDE));
+		jogadores.add(new Jogador("Jogador Amarelo", Cores.AMARELO));
+		jogadores.add(new Jogador("Jogador Azul", Cores.AZUL));
+		jogadorDaVez = jogadores.get(0);
+	}
     public Cores getCorDaVez() {
     	return jogadorDaVez.getCor();
     }
@@ -52,11 +69,18 @@ public class API {
     	}
     	
     }
-	public void printVencedor(){
+	public String printVencedor(){
 		Jogador [] rank = Ranking.calculaRanking(jogadores);
+		String ranking = "";
+		int count = 1;
 		for(Jogador jog: rank){
-			System.out.println("Distancia do jogador: "+jog.getSomaDist());
+			String jogAtual = jog.getCor().toString();
+			int valor = jog.getSomaDist();
+			String atual = String.format("%d colocado de cor %s teve soma %d", count, jogAtual,valor);
+			ranking = ranking.concat(atual).concat("\n") ;
+			count++;
 		}
+		return ranking;
 	}
     
     public void printaJogadorDaVez(){

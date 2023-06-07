@@ -89,28 +89,35 @@ public class Tab extends JFrame implements Observador {
         System.out.println("Casa recebida pelo updateCasa: " + casa);
         System.out.println("Dado: " + vDado);
 
-        if(!api.verificaSeAlgumJogadorVenceu()) {
-        	controller.turno(casa, vDado);
-        	vDado = 0;
-        }else{
-            getContentPane().remove(tabuleiro);
-            api.printVencedor();
-        }
-        if(!api.verificaSeAlgumJogadorVenceu()) {
+        controller.turno(casa, vDado);
+        vDado = 0;
+        /*
+         * trecho de codigo para atualizar o feedback visual de quem é o jogador da vez
+         */
+        corDaVez = controller.getCorDaVez();
+        getContentPane().remove(retangulo);
+        retangulo = new JLabel();
+        retangulo.setOpaque(true);
+        retangulo.setBackground(corDaVez);
+        retangulo.setBounds(897, 480, 120, 120);
+        getContentPane().add(retangulo);
+        getContentPane().repaint();
 
-            /*
-             * trecho de codigo para atualizar o feedback visual de quem é o jogador da vez
-             */
-            corDaVez = controller.getCorDaVez();
-            getContentPane().remove(retangulo);
-            retangulo = new JLabel();
-            retangulo.setOpaque(true);
-            retangulo.setBackground(corDaVez);
-            retangulo.setBounds(897, 480, 120, 120);
-            getContentPane().add(retangulo);
-            getContentPane().repaint();
+        if(api.verificaSeAlgumJogadorVenceu()) {
+            encerraJogo();
         }
-        
+
+    }
+    public void encerraJogo(){
+        JOptionPane.showMessageDialog(null,api.printVencedor(),"Fim de Jogo",JOptionPane.INFORMATION_MESSAGE);
+
+        int escolha = JOptionPane.showConfirmDialog(null,"Deseja Recomeçar o jogo?","Iniciar novo Jogo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if(escolha == JOptionPane.YES_OPTION){
+            api.resetaJogo();
+            update();
+        }else{
+            System.exit(0);
+        }
     }
 
 }
