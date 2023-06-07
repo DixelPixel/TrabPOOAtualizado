@@ -1,12 +1,13 @@
 package Model;
 
+
 class Jogador implements Comparable<Jogador>{
 	private final String nome;
 	private Peca pecas[];
 	private Cores cor;
 	
 	//soma das distancias no fim do jogo
-	private int somaDist;
+	private Integer somaDist;
 	
 	public int getSomaDist() {
 		return somaDist;
@@ -20,6 +21,7 @@ class Jogador implements Comparable<Jogador>{
 		this.nome = nome;
 		this.cor = cor;
 		pecas = new Peca[4];
+		somaDist = 0;
 
 		calcula_pos_ini(cor,pecas);
 

@@ -88,23 +88,28 @@ public class Tab extends JFrame implements Observador {
         this.pos = casa;
         System.out.println("Casa recebida pelo updateCasa: " + casa);
         System.out.println("Dado: " + vDado);
-        
+
         if(!api.verificaSeAlgumJogadorVenceu()) {
         	controller.turno(casa, vDado);
         	vDado = 0;
+        }else{
+            getContentPane().remove(tabuleiro);
+            api.printVencedor();
         }
-        
-		/*
-		 * trecho de codigo para atualizar o feedback visual de quem é o jogador da vez
-		 */
-        corDaVez = controller.getCorDaVez();
-        getContentPane().remove(retangulo);
-        retangulo = new JLabel();
-        retangulo.setOpaque(true);
-		retangulo.setBackground(corDaVez);
-		retangulo.setBounds(897, 480, 120, 120);
-        getContentPane().add(retangulo);
-        getContentPane().repaint();
+        if(!api.verificaSeAlgumJogadorVenceu()) {
+
+            /*
+             * trecho de codigo para atualizar o feedback visual de quem é o jogador da vez
+             */
+            corDaVez = controller.getCorDaVez();
+            getContentPane().remove(retangulo);
+            retangulo = new JLabel();
+            retangulo.setOpaque(true);
+            retangulo.setBackground(corDaVez);
+            retangulo.setBounds(897, 480, 120, 120);
+            getContentPane().add(retangulo);
+            getContentPane().repaint();
+        }
         
     }
 

@@ -52,6 +52,12 @@ public class API {
     	}
     	
     }
+	public void printVencedor(){
+		Jogador [] rank = Ranking.calculaRanking(jogadores);
+		for(Jogador jog: rank){
+			System.out.println("Distancia do jogador: "+jog.getSomaDist());
+		}
+	}
     
     public void printaJogadorDaVez(){
     	System.out.println(jogadorDaVez);
@@ -180,8 +186,10 @@ public class API {
 			else {
 				cor = 3;
 			}
-			ret = tabuleiro.corVenceu(tabuleiro.getVetCasaRetaFinal(cor)[5]);
+			if(tabuleiro.corVenceu(tabuleiro.getVetCasaRetaFinal(cor)[5])) {
+				return true;
+			}
 		}
-		return ret;
+		return false;
 	}
 }
