@@ -5,7 +5,6 @@ class Casa {
 
 	private Efeitos efeito;
 	private List<Peca> pecas = new LinkedList<Peca>();
-	private int size = 0;
 	
 	protected Casa(Efeitos efeito) {
 		this.efeito = efeito;
@@ -23,11 +22,7 @@ class Casa {
 		return pecas.size();
 	}
 
-	public int getSize() {
-		return size;
-	}
-
-	//	public List<Peca> getPecas(){
+//	public List<Peca> getPecas(){
 //		return pecas;
 //	}
 
@@ -42,7 +37,7 @@ class Casa {
 	}
 	
 	protected void addPeca(Peca peca) {
-		pecas.add(peca);size++;
+		pecas.add(peca);
 	}
 	
 	protected Peca getPeca() {
@@ -91,7 +86,7 @@ class Casa {
 		 * As peças de mesma cor que estão na mesma casa sao "a mesma coisa", então é so
 		 * remover a primeira peça encontrada da cor passada como paramentro
 		 */
-		size--;
+
 		pecas.remove(p);
 	}
 	

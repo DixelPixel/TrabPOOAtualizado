@@ -270,7 +270,7 @@ class Tabuleiro implements Observado{
 	}
 	
 	protected boolean corVenceu(CasaRetaFinal ultima) {
-		return ultima.getSize() == 4;
+		return ultima.getPecas().size()==4;
 	}
 	
 	/*
