@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +41,34 @@ public class Menu extends JComponent implements Observado, Observador {
         b_CarregarJogo.setBounds(800,120,325, 50);
         b_SalvarJogo.setBounds(800,190,325, 50);
         b_LancarDados.setBounds(800,350,325, 50);
+
+        b_NovoJogo.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                api.resetaJogo();
+                frame.update();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
         
         System.out.println("VALOR DO DADO MENU: " + vDado);
 
