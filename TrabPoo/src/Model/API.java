@@ -196,7 +196,6 @@ public class API {
 	}
 	public boolean verificaSeAlgumJogadorVenceu() {
 		int cor;
-		boolean ret = false;
 		for(Jogador j: jogadores) {
 			if(j.getCor() == Cores.VERMELHO) {
 				cor = 0;

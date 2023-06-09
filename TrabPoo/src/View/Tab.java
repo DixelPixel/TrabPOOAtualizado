@@ -19,7 +19,6 @@ public class Tab extends JFrame implements Observador {
     private Controller controller;
     private API api;
     private Color corDaVez;
-    private JLabel retangulo;
 
     public Tab(){
     	
@@ -32,7 +31,6 @@ public class Tab extends JFrame implements Observador {
         api = API.getInstance();
         Menu menu = new Menu(this);
         tabuleiro = new Componente(this);
-        retangulo = new JLabel();
         
         controller.registraObservador(menu);
         menu.getComponenteInput().registraObservador(this);
@@ -41,11 +39,6 @@ public class Tab extends JFrame implements Observador {
 		tabuleiro.setBounds(0,0,800,700);
 		getContentPane().add(tabuleiro);
 
-		retangulo.setOpaque(true);
-		retangulo.setBackground(corDaVez);
-		retangulo.setBounds(897, 480, 120, 120);
-        getContentPane().add(retangulo);
-		
 		menu.setBounds(800,0,500,700);
 		getContentPane().add(menu);
 
@@ -91,17 +84,6 @@ public class Tab extends JFrame implements Observador {
 
         controller.turno(casa, vDado);
         vDado = 0;
-        /*
-         * trecho de codigo para atualizar o feedback visual de quem é o jogador da vez
-         */
-        corDaVez = controller.getCorDaVez();
-        getContentPane().remove(retangulo);
-        retangulo = new JLabel();
-        retangulo.setOpaque(true);
-        retangulo.setBackground(corDaVez);
-        retangulo.setBounds(897, 480, 120, 120);
-        getContentPane().add(retangulo);
-        getContentPane().repaint();
 
         if(api.verificaSeAlgumJogadorVenceu()) {
             encerraJogo();
