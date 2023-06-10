@@ -295,7 +295,6 @@ class Tabuleiro implements Observado{
 				break;
 			}
 		}
-		System.out.println("I: " + i);
 		executaOperacoesParaMover(peca, i-1);
 		return true;
 		
