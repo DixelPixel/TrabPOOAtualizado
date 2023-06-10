@@ -295,47 +295,47 @@ class Componente extends JComponent implements Observado {
             	}
             } else{
                 if(cor == Color.red){
-                    x = 25;
-                    y = 25;
+                    x = 75;
+                    y = 75;
                     if( i == 1){
-                        x += 200;
+                        x += 100;
                     }else if(i == 2){
                         y+=100;
                     }else if(i ==3){
-                        x+=200;
+                        x+=100;
                         y+=100;
                     }
                 }else if(cor == Color.green){
-                    x = 475;
-                    y = 25;
+                    x = 525;
+                    y = 75;
                     if( i == 1){
-                        x += 200;
+                        x += 100;
                     }else if(i == 2){
                         y+=100;
                     }else if(i ==3){
-                        x+=200;
+                        x+=100;
                         y+=100;
                     }
                 }else if(cor == Color.ORANGE){
-                    x = 475;
-                    y = 420;
+                    x = 525;
+                    y = 470;
                     if( i == 1){
-                        x += 200;
+                        x += 100;
                     }else if(i == 2){
                         y+=100;
                     }else if(i ==3){
-                        x+=200;
+                        x+=100;
                         y+=100;
                     }
                 }else if(cor == Color.blue){
-                    x = 25;
-                    y = 420;
+                    x = 75;
+                    y = 470;
                     if( i == 1){
-                        x += 200;
+                        x += 100;
                     }else if(i == 2){
                         y+=100;
                     }else if(i ==3){
-                        x+=200;
+                        x+=100;
                         y+=100;
                     }
                 }
