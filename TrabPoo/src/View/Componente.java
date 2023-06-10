@@ -342,7 +342,6 @@ class Componente extends JComponent implements Observado {
             }
             if(pos>=0){
                 if(api.retBarricada(retNumJog(cor),i)){
-                    System.out.println("Barricada presente na pos "+pos);
                     g.setColor(Color.GREEN);
                     g.drawOval(x, y, 35, 35);
                     g.setColor(Color.GREEN);
@@ -359,7 +358,6 @@ class Componente extends JComponent implements Observado {
                     g.fillOval(x + 5, y + 6, 25, 25);
                     continue;
                 }else if(api.retAbrigoMaisUmaPeca(retNumJog(cor),i)){
-                    System.out.println("Abrigo presente na pos "+ pos);
                     g.setColor(Color.GREEN);
                     g.drawOval(x, y, 35, 35);
                     g.setColor(Color.GREEN);
