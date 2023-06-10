@@ -8,17 +8,15 @@ import Model.API;
 import Controller.*;
 
 public class Tab extends JFrame implements Observador {
-	
-    public final int LARG_DEFAULT=1200;
+
+	private static final long serialVersionUID = 1L;
+	public final int LARG_DEFAULT=1200;
     public final int ALT_DEFAULT=700;
-    private static final Color BLUE_COLOR = Color.decode("0x6495ED");
-    private static final Color RED_COLOR = Color.decode("0xdc143c");
     private Componente tabuleiro;
     int vDado = 0;
     int pos;
     private Controller controller;
     private API api;
-    private Color corDaVez;
 
     public Tab(){
     	
@@ -33,9 +31,9 @@ public class Tab extends JFrame implements Observador {
         tabuleiro = new Componente(this);
         
         controller.registraObservador(menu);
+        controller.registraObservador(this);
         menu.getComponenteInput().registraObservador(this);
 
-        corDaVez = controller.getCorDaVez();
 		tabuleiro.setBounds(0,0,800,700);
 		getContentPane().add(tabuleiro);
 
@@ -45,6 +43,18 @@ public class Tab extends JFrame implements Observador {
         api.adicionaObservadorTabuleiro(this);
 
 		setVisible(true);
+    }
+    
+    public void encerraJogo(){
+        JOptionPane.showMessageDialog(null,api.printVencedor(),"Fim de Jogo",JOptionPane.INFORMATION_MESSAGE);
+
+        int escolha = JOptionPane.showConfirmDialog(null,"Deseja Recomeçar o jogo?","Iniciar novo Jogo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if(escolha == JOptionPane.YES_OPTION){
+            api.resetaJogo();
+            update();
+        }else{
+            System.exit(0);
+        }
     }
     
     public static void main(String[] args){
@@ -90,18 +100,6 @@ public class Tab extends JFrame implements Observador {
         }
 
     }
-    public void encerraJogo(){
-        JOptionPane.showMessageDialog(null,api.printVencedor(),"Fim de Jogo",JOptionPane.INFORMATION_MESSAGE);
 
-        int escolha = JOptionPane.showConfirmDialog(null,"Deseja Recomeçar o jogo?","Iniciar novo Jogo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if(escolha == JOptionPane.YES_OPTION){
-            api.resetaJogo();
-            update();
-        }else{
-            System.exit(0);
-        }
-    }
 
 }
-
-

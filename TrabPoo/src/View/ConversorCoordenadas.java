@@ -10,7 +10,7 @@ public class ConversorCoordenadas {
 	private ConversorCoordenadas(){}
 	
 	public void putMapaCoordCart(int x, int y) {
-//		imprimeHash();
+
 		int pos = getCoordLinear(x,y);
 		if(pos == -1){
 			return;
@@ -19,9 +19,13 @@ public class ConversorCoordenadas {
 	}
 
 	public int[] converteLinearParaCartesiana(int coordLin) {
-//		imprimeHash();
+
     	return mapaCoordCart.get(coordLin);
     }
+	
+	public int getSizeHashMap() {
+		return mapaCoordCart.size();
+	}
 	
 	public void imprimeHash() {
 		System.out.println("Tamanho: " + mapaCoordCart.size());
@@ -34,7 +38,6 @@ public class ConversorCoordenadas {
 	
     private int processaCoord(int i, int j, int cor) {
     	int coord = -1;
-//    	System.out.println("cor: "+ cor + " i: " + i + " j: "+j);
     	switch(cor) {
     		case 1: // amarelo
     			if(i == 0) {

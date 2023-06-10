@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.JComponent;
 
+import Controller.Controller;
+
 class Componente extends JComponent implements Observado {
 	private static final long serialVersionUID = 1L;
 	public final int LARG_DEFAULT=1200;
@@ -25,13 +27,29 @@ class Componente extends JComponent implements Observado {
     private int pos;
     private List<Observador> observadores;
     private API api;
+    private Controller controller;
+    
+	/**
+	 * essa variavel corJDV serve para evitar que um jogador tenha mais de uma peça
+	 * retirada da casa inicial em uma rodada. Ela é uma variavel estática pois não
+	 * podemos perder-la de um re-render para outro. 
+	 */
+    private static String corJDV;
     
     public Componente(Tab frame){
     	api = API.getInstance();
     	conversor = ConversorCoordenadas.getInstance();
-
         observadores = new ArrayList<>();
     	registraObservador(frame);
+    	controller = Controller.getInstance();
+    	
+    	if(corJDV == null) {
+    		corJDV = controller.getNomeCorDaVez();
+    	}
+    	if(controller.getRodada() == 1 && corJDV == controller.getNomeCorDaVez()) {
+    		controller.primeiraRodada();
+    		corJDV = controller.getNomeCorProx();
+    	}
 
         this.addMouseListener(new MouseListener() {
             @Override
@@ -39,12 +57,9 @@ class Componente extends JComponent implements Observado {
                 int x=e.getX();
                 int y=e.getY();
                 int coordenadaLinear = conversor.getCoordLinear(x,y);
-//                System.out.println(" x: "+ x + " y: "+ y + " indice corrigido: " + coordenadaLinear);
                 pos = coordenadaLinear;
                 notificaObservadores();
-                conversor.imprimeHash();
-//                int[] coord = conversor.converteLinearParaCartesiana(coordenadaLinear);
-//                System.out.println("Pos corrigidas: x = " + coord[0] + " y = " + coord[1]);
+
             }
 			@Override
             public void mousePressed(MouseEvent e) {
@@ -110,24 +125,24 @@ class Componente extends JComponent implements Observado {
         //casas do lado esquerdo
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 6; j++){
+            	x = 49*j; y = 290 + 40*i;
+            	
                 if(i == 1 && j >0){
                     g2d.setColor(RED_COLOR);
-
-                    x = 49*j; y = 290 + 40*i;
                     g2d.fillRect(x, y, 49, 40);
                     conversor.putMapaCoordCart(x+2, y+2);
 
                 }else if(i == 0 && j ==1){
                     g2d.setColor(RED_COLOR);
-
-                    x = 49*j; y = 290 + 40*i;
                     g2d.fillRect(x, y, 49, 40);
                     conversor.putMapaCoordCart(x+2, y+2);
-
+                }
+                else if(i == 2 && j == 1) {
+                	g2d.setColor(Color.black);
+                	g2d.fillRect(x, y, 49, 40);
                 }
                 g2d.setColor(Color.black);
 
-                x = 49*j; y = 290 + 40*i;
                 g2d.drawRect(x, y, 49, 40);
                 conversor.putMapaCoordCart(x+2, y+2);
             }
@@ -137,18 +152,20 @@ class Componente extends JComponent implements Observado {
         //casas do lado direito
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 6; j++){
+            	x = 441+49*j; y = 290 + 40*i;
                 if(i == 1 && j <5){
                     g2d.setColor(Color.YELLOW);
-
-                    x = 441+49*j; y = 290 + 40*i;
                     g2d.fillRect(x, y, 49, 40);
                     conversor.putMapaCoordCart(x+2, y+2);
-                }else if(i == 2 && j ==4){
+                }
+                else if(i == 2 && j ==4){
                     g2d.setColor(Color.YELLOW);
-
-                    x = 441+49*j; y = 290 + 40*i;
                     g2d.fillRect(x, y, 49, 40);
                     conversor.putMapaCoordCart(x+2, y+2);
+                }
+                else if(i == 0 && j == 4) {
+                	g2d.setColor(Color.black);
+                	g2d.fillRect(x, y, 49, 40);
                 }
                 g2d.setColor(Color.black);
 
@@ -162,22 +179,23 @@ class Componente extends JComponent implements Observado {
         //casas de cima
         for(int i = 0; i < 6; i++){
             for(int j = 0; j < 3; j++){
+            	x = 294+ 49*j; y = 48*i;
                 if(j == 1 && i >0){
                     g2d.setColor(Color.GREEN.darker());
-
-                    x = 294+ 49*j; y = 48*i;
-                    g2d.fillRect(x, y, 49, 48);
-                    conversor.putMapaCoordCart(x+2, y+2);
-                }else if(i == 1 && j ==2){
-                    g2d.setColor(Color.GREEN.darker());
-
-                    x = 294+ 49*j; y = 48*i;
                     g2d.fillRect(x, y, 49, 48);
                     conversor.putMapaCoordCart(x+2, y+2);
                 }
+                else if(i == 1 && j ==2){
+                    g2d.setColor(Color.GREEN.darker());
+                    g2d.fillRect(x, y, 49, 48);
+                    conversor.putMapaCoordCart(x+2, y+2);
+                }
+                else if(i == 1 && j == 0) {
+                	g2d.setColor(Color.black);
+                	g2d.fillRect(x, y, 49, 48);
+                }
+                
                 g2d.setColor(Color.black);
-
-                x = 294+ 49*j; y = 48*i;
                 g2d.drawRect(x, y, 49, 48);
                 conversor.putMapaCoordCart(x+2, y+2);
             }
@@ -187,22 +205,22 @@ class Componente extends JComponent implements Observado {
         //casas de baixo
         for(int i = 0; i < 6; i++){
             for(int j = 0; j < 3; j++){
+                x = 294+ 49*j; y = 410 + 42*i;
                 if(j == 1 && i <5){
                     g2d.setColor(BLUE_COLOR);
-
-                    x = 294+ 49*j; y = 410 + 42*i;
-                    g2d.fillRect(x, y, 49, 42);
-                    conversor.putMapaCoordCart(x+2, y+2);
-                }else if(i == 4 && j ==0){
-                    g2d.setColor(BLUE_COLOR);
-
-                    x = 294+ 49*j; y = 410 + 42*i;
                     g2d.fillRect(x, y, 49, 42);
                     conversor.putMapaCoordCart(x+2, y+2);
                 }
+                else if(i == 4 && j ==0){
+                    g2d.setColor(BLUE_COLOR);
+                    g2d.fillRect(x, y, 49, 42);
+                    conversor.putMapaCoordCart(x+2, y+2);
+                }
+                else if(i == 4 && j == 2) {
+                    g2d.setColor(Color.black);
+                    g2d.fillRect(x, y, 49, 42);
+                }
                 g2d.setColor(Color.black);
-
-                x = 294+ 49*j; y = 410 + 42*i;
                 g2d.drawRect(x, y, 49, 42);
                 conversor.putMapaCoordCart(x+2, y+2);
             }

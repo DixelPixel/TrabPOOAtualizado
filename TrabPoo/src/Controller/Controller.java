@@ -32,10 +32,18 @@ public class Controller implements Observado{
 		notificaObservadores();
 	}
 	
+	public boolean primeiraRodada() {
+		if(rodada == 1) {
+			return api.colocaCasaInicial();
+		}
+		return false;
+	}
+	
 	public boolean turno(int casaClicada, int vDado) {
 		boolean andou;
 		
 		if(rodada == 1 && n6Seguidos == 0 && vDado == 0) {
+//			System.out.println("FALA AEE!");
 			return api.colocaCasaInicial();
 		}
 		
@@ -106,6 +114,22 @@ public class Controller implements Observado{
 		}
 		else {
 			return Color.blue;
+		}
+	}
+	
+	public String getNomeCorProx() {
+		Cores cor = api.getCorDaVez();
+		if(cor == Cores.VERMELHO) {
+			return Cores.VERDE.name();
+		}
+		else if(cor == Cores.VERDE) {
+			return Cores.AMARELO.name();
+		}
+		else if(cor == Cores.AMARELO) {
+			return Cores.AZUL.name();
+		}
+		else {
+			return Cores.VERMELHO.name();
 		}
 	}
 	

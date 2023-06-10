@@ -138,7 +138,7 @@ class Tabuleiro implements Observado{
 		return false;
 	}
 	
-	public int posFinal(int pos) {
+	public static int posFinal(int pos) {
 		/* o objetivo dessa função é corrigir os indices de acesso ao vetor de casas */
 		int posAux = pos;
 		if(posAux > Tabuleiro.QTDCASAS - 1) {
@@ -228,6 +228,10 @@ class Tabuleiro implements Observado{
 		 * estruturas para mover uma peça
 		 */
 		
+		if(vDado == 0) {
+			return;
+		}
+		
 		verificaRetaFinal(peca, vDado);
 		
 		if(!peca.isRetaFinal()) {
@@ -283,34 +287,18 @@ class Tabuleiro implements Observado{
 	
 	private boolean movePecaParaCasaPermitida(Peca peca, int vDado) {
 	
-		
-		int i, pos = 1;
-		
-		for(i = 1; i < vDado; i++, pos++) {
-			int idx = posFinal(i+peca.getPos());
-			Casa casaAtual = casas[idx];
+		int i;
+		Casa casaAtual;
+		for(i = 1; i <= vDado; i++) {
+			casaAtual = casas[posFinal(peca.getPos()+i)];
 			if(!casaAtual.podeMover()) {
-				/*
-				 * a questão aqui é mover a peça para a casa imediatamente anterior a uma
-				 * barreira caso exista uma. Se ele ja moveu, o loop acabou.
-				 */
-				pos = i-1;
 				break;
 			}
 		}
-		if(pos == 0) {
-			/*
-			 * nesse caso, tem um impedimento para movimentação na casa imediatamente
-			 * posterior a casa atual da peca, e portanto essa peca nao pode ser mexida.
-			 */
-			notificaObservadores();
-			return false;
-		}
-		else {
-			executaOperacoesParaMover(peca, pos);
-			notificaObservadores();
-			return true;
-		}
+		System.out.println("I: " + i);
+		executaOperacoesParaMover(peca, i-1);
+		return true;
+		
 	}
 	
 	public boolean movePeca(Jogador j, int idxCasa, int vDado) {
@@ -319,7 +307,7 @@ class Tabuleiro implements Observado{
 		 * indice passado pode ser feita o idxCasa = -1 significa que ele quer tirar
 		 * uma peça da casa inicial
 		 */
-		if(j.verificaSeTemPeca()){
+		if(j.verificaSeTemPeca(getCasas())){
 			/*
 			 * verifica se o jogador tem peça para mover, ou seja, se alguma peça dentre as
 			 * dele tem pos > -1
@@ -369,7 +357,6 @@ class Tabuleiro implements Observado{
 						 * nesse caso o jogador saiu com uma peça da casa inicial e
 						 * essa foi a sua jogada
 						 */
-						System.out.println("ALOOOO");
 						notificaObservadores();
 						return true;
 					}

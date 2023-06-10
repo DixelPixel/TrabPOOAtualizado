@@ -2,7 +2,7 @@ package Model;
 
 import View.Tab;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import Controller.Controller;
@@ -10,7 +10,7 @@ import Controller.Controller;
 public class API {
     private static API instance;
     private Tabuleiro tabuleiro;
-    private List<Jogador> jogadores = new LinkedList<Jogador>();
+    private List<Jogador> jogadores = new ArrayList<Jogador>();
     private Jogador jogadorDaVez;
 	private Jogador[] ranking;
 
@@ -48,13 +48,19 @@ public class API {
     	return jogadorDaVez.getCor();
     }
 
-//    public void adicionaJogador(String nome, Cores cor){
-//        if(jogadores.size()<4)
-//            jogadores.add(new Jogador(nome, cor));
-//        else{
-//            System.out.println("Não é possível adicionar mais que 4 jogadores!");
-//        }
-//    }
+    public Cores getCorProx() {
+    	ListIterator<Jogador> li = jogadores.listIterator();
+    	while(li.hasNext()) {
+    		if(jogadorDaVez.getCor() == Cores.AZUL) {
+    			return li.next().getCor();
+    		}
+    		else if(li.next().getCor() == jogadorDaVez.getCor()) {
+    			jogadorDaVez = li.next();
+    			return li.next().getCor();
+    		}
+    	}
+    	return null;
+    }
     
     public void atualizaJogadorDaVez() {
     	ListIterator<Jogador> li = jogadores.listIterator();
@@ -144,7 +150,7 @@ public class API {
     }
     
     public boolean jogadorDaVezTemPecaParaMover() {
-    	return jogadorDaVez.verificaSeTemPeca();
+    	return jogadorDaVez.verificaSeTemPeca(tabuleiro.getCasas());
     }
 
 	/** retorna a posição de 1 das 4 peças do jogador */

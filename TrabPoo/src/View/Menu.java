@@ -31,7 +31,6 @@ public class Menu extends JComponent implements Observado, Observador {
         observadores = new ArrayList<>();
         controller = Controller.getInstance();
         corJogadorDaVez = controller.getNomeCorDaVez();
-        
         corDaVez = controller.getCorDaVez();
         		
         registraObservador(frame);
@@ -74,14 +73,12 @@ public class Menu extends JComponent implements Observado, Observador {
 
             }
         });
-        
-        System.out.println("VALOR DO DADO MENU: " + vDado);
 
 //		Texto falando do jogador e do dado
         JLabel t_AJogar = new JLabel("À Jogar:");
         JLabel t_Resultado = new JLabel("Resultado:");
         inputVDado = new NumeroInputComponent();
-        this.JogadorAtual= new JLabel(controller.getNomeCorDaVez());
+        this.JogadorAtual= new JLabel(corJogadorDaVez);
         JLabel dado = new JLabel();
         dado.setBounds(907, 490, 100, 100);
         dado.setIcon(new ImageIcon(System.getProperty("user.dir") + "/Imagens/Dado6.png"));
@@ -149,6 +146,7 @@ public class Menu extends JComponent implements Observado, Observador {
                 ImageIcon iconeDado = new ImageIcon(dadoPngPath);
                 dado.setIcon(iconeDado);
                 notificaObservadores();
+//                vDado = 0;
             }
         });
     }
@@ -200,7 +198,7 @@ public class Menu extends JComponent implements Observado, Observador {
         retangulo.setBackground(corDaVez);
         retangulo.setBounds(897, 480, 120, 120);
         frame.add(retangulo);
-		
+        
 		frame.repaint();
 		
 	}
@@ -216,4 +214,5 @@ public class Menu extends JComponent implements Observado, Observador {
 		// TODO Auto-generated method stub
 		
 	}
+
 }

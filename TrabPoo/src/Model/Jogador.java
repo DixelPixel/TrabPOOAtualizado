@@ -115,15 +115,20 @@ class Jogador implements Comparable<Jogador>{
 	 * essa funcao informa se o jogador tem peça no jogo para mover ou se deve tirar
 	 * 5 para remover a peça da casa inicial para só então jogar
 	 */
-	protected boolean verificaSeTemPeca() {
+	protected boolean verificaSeTemPeca(Casa [] casas) {
 		boolean pNaUltimaCasa, ret = false;
 		for(Peca p: pecas) {
 			pNaUltimaCasa = p.isRetaFinal() && p.getPos() == 5;
 			if(pNaUltimaCasa) {
-				ret = false;
+				ret |= false;
 			}
 			else if(p.getPos() > -1) {
-				ret = true;
+				if(!casas[Tabuleiro.posFinal(p.getPos()+1)].podeMover()) {
+					ret |= false;
+				}
+				else {
+					ret |= true;
+				}
 			}
 		}
 		return ret;
