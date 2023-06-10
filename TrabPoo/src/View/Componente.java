@@ -255,9 +255,9 @@ class Componente extends JComponent implements Observado {
 
 
         desenha_pecas(g2d,0,Color.RED);
-        desenha_pecas(g2d,3,Color.BLUE);
-        desenha_pecas(g2d,2,Color.ORANGE);
         desenha_pecas(g2d,1,Color.GREEN);
+        desenha_pecas(g2d,2,Color.ORANGE);
+        desenha_pecas(g2d,3,Color.BLUE);
 
     }
 
@@ -340,8 +340,9 @@ class Componente extends JComponent implements Observado {
                     }
                 }
             }
-            if(pos>0){
+            if(pos>=0){
                 if(api.retBarricada(retNumJog(cor),i)){
+                    System.out.println("Barricada presente na pos "+pos);
                     g.setColor(Color.GREEN);
                     g.drawOval(x, y, 35, 35);
                     g.setColor(Color.GREEN);
@@ -358,7 +359,7 @@ class Componente extends JComponent implements Observado {
                     g.fillOval(x + 5, y + 6, 25, 25);
                     continue;
                 }else if(api.retAbrigoMaisUmaPeca(retNumJog(cor),i)){
-                    System.out.println();
+                    System.out.println("Abrigo presente na pos "+ pos);
                     g.setColor(Color.GREEN);
                     g.drawOval(x, y, 35, 35);
                     g.setColor(Color.GREEN);
@@ -385,7 +386,7 @@ class Componente extends JComponent implements Observado {
         hashJog.put(Color.RED,0);
         hashJog.put(Color.GREEN,1);
         hashJog.put(Color.ORANGE,2);
-        hashJog.put(Color.blue,3);
+        hashJog.put(Color.BLUE,3);
         return hashJog.get(cor);
     }
 
