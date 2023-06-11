@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import Controller.Controller;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class API {
     private static API instance;
@@ -221,4 +227,41 @@ public class API {
 		}
 		return false;
 	}
+	public void CarregaJogo() {
+		
+	}
+	
+	public void SalvaJogo() {
+		JFileChooser fileChooser = new JFileChooser();
+	    fileChooser.setDialogTitle("Selecione um arquivo");
+	    
+	    // Filtrar apenas arquivos .txt
+	    FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivos de Texto (*.txt)", "txt");
+	    fileChooser.setFileFilter(filter);
+	    
+	    int resultado = fileChooser.showOpenDialog(null);
+	    
+	    if (resultado == JFileChooser.APPROVE_OPTION) {
+	        File arquivoSelecionado = fileChooser.getSelectedFile();
+	        
+	        try {
+		        FileWriter writer = new FileWriter(arquivoSelecionado);
+		        for(Jogador jogador:jogadores) {
+		        	writer.write(jogador.getCor().toString() + "\n");
+		        	for(Peca peca:jogador.getPecas()) {
+		        		writer.write(peca.getPos()+ "/" + peca.getCasasPercorridas() + "\n");
+		        	}
+		        }
+		        writer.close();
+		        System.out.println("Arquivo salvo com sucesso!");
+		    } catch (IOException e) {
+		        System.out.println("Erro ao salvar o arquivo: " + e.getMessage());
+		    }
+	    }
+	    
+	    
+	    
+	}
+
 }
+	
