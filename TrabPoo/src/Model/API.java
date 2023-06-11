@@ -12,6 +12,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class API {
     private static API instance;
@@ -228,7 +230,77 @@ public class API {
 		return false;
 	}
 	public void CarregaJogo() {
-		
+	    JFileChooser fileChooser = new JFileChooser();
+	    fileChooser.setDialogTitle("Selecione um arquivo");
+
+	    // Filtrar apenas arquivos .txt
+	    FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivos de Texto (*.txt)", "txt");
+	    fileChooser.setFileFilter(filter);
+
+	    int resultado = fileChooser.showOpenDialog(null);
+
+	    if (resultado == JFileChooser.APPROVE_OPTION) {
+	        File arquivoSelecionado = fileChooser.getSelectedFile();
+
+	        // Verificar a extensão do arquivo selecionado
+	        String nomeArquivo = arquivoSelecionado.getName();
+	        String extensao = nomeArquivo.substring(nomeArquivo.lastIndexOf(".") + 1);
+	        if (!extensao.equalsIgnoreCase("txt")) {
+	            System.out.println("Tipo de arquivo inválido. Apenas arquivos .txt são permitidos.");
+	        } else {
+	            try {
+	                Scanner scanner = new Scanner(arquivoSelecionado);
+
+	                // Limpar jogadores existentes
+	                resetaJogadores();
+	                
+	                int i = 0;
+	                // Atualizar informações dos jogadores e peças
+	                while (scanner.hasNextLine()) {
+	                    String linha = scanner.nextLine();
+	                    if (linha.isEmpty()) {
+	                        continue;
+	                    }
+	                    
+	                    String[] partes = linha.split("/");
+	                    if (partes.length == 2) {
+	                        int pos = Integer.parseInt(partes[0]);
+	                        int casasPercorridas = Integer.parseInt(partes[1]);
+
+	                        // Atualizar posição e casas percorridas da peça
+	                        jogadorDaVez.getPecas()[i].setPos(pos);
+	                        jogadorDaVez.getPecas()[i].setCasasPercorridas(casasPercorridas);
+	                        i++;
+	                        
+	                    } else {
+	                        Cores cor = Cores.valueOf(partes[0]);
+
+	                        // Encontrar o jogador correspondente à cor
+	                        Jogador jogador = null;
+	                        for (Jogador j : jogadores) {
+	                            if (j.getCor() == cor) {
+	                                jogador = j;
+	                                break;
+	                            }
+	                        }
+
+	                        if (jogador != null) {
+	                        	i = 0;
+	                            jogadorDaVez = jogador;
+	                        }
+	                    }
+	                }
+
+	                scanner.close();
+	                System.out.println("Jogo carregado com sucesso!");
+	                atualizaJogadorDaVez();
+	            } catch (FileNotFoundException e) {
+	                System.out.println("Arquivo não encontrado: " + e.getMessage());
+	            } catch (NumberFormatException e) {
+	                System.out.println("Formato inválido no arquivo: " + e.getMessage());
+	            }
+	        }
+	    }
 	}
 	
 	public void SalvaJogo() {
@@ -244,19 +316,29 @@ public class API {
 	    if (resultado == JFileChooser.APPROVE_OPTION) {
 	        File arquivoSelecionado = fileChooser.getSelectedFile();
 	        
-	        try {
-		        FileWriter writer = new FileWriter(arquivoSelecionado);
-		        for(Jogador jogador:jogadores) {
-		        	writer.write(jogador.getCor().toString() + "\n");
-		        	for(Peca peca:jogador.getPecas()) {
-		        		writer.write(peca.getPos()+ "/" + peca.getCasasPercorridas() + "\n");
-		        	}
-		        }
-		        writer.close();
-		        System.out.println("Arquivo salvo com sucesso!");
-		    } catch (IOException e) {
-		        System.out.println("Erro ao salvar o arquivo: " + e.getMessage());
-		    }
+		     // Verificar a extensão do arquivo selecionado
+	        String nomeArquivo = arquivoSelecionado.getName();
+	        String extensao = nomeArquivo.substring(nomeArquivo.lastIndexOf(".") + 1);
+	        if (!extensao.equalsIgnoreCase("txt")) {
+	            System.out.println("Tipo de arquivo inválido. Apenas arquivos .txt são permitidos.");
+	        }else {
+	        	try {
+			        FileWriter writer = new FileWriter(arquivoSelecionado);
+			        
+			        for(Jogador jogador:jogadores) {
+			        	writer.write(jogador.getCor().toString() + "\n");
+			        	for(Peca peca:jogador.getPecas()) {
+			        		writer.write(peca.getPos()+ "/" + peca.getCasasPercorridas() + "\n");
+			        	}
+			        }
+			        writer.close();
+			        System.out.println("Arquivo salvo com sucesso!");
+			    } catch (IOException e) {
+			        System.out.println("Erro ao salvar o arquivo: " + e.getMessage());
+			    }
+	        }
+	        
+	        
 	    }
 	    
 	    
