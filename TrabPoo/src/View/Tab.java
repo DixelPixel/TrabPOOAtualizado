@@ -56,18 +56,11 @@ public class Tab extends JFrame implements Observador {
             System.exit(0);
         }
     }
-    
-    public static void main(String[] args){
-        Tab frame = new Tab();
-
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(3);
-        frame.setVisible(true);
-    }
 
     @Override
     public void update() {
     	
+//    	vDado = 0;
         getContentPane().remove(tabuleiro);
         Componente aux = new Componente(this);
         tabuleiro = aux;
@@ -81,25 +74,25 @@ public class Tab extends JFrame implements Observador {
     public void update(int dado) {
        this.vDado = dado;
        System.out.println("Valor tirado no dado "+vDado);
-       
        controller.passaVez(dado);
-    	   
+       updateCasa(-1);
+       
     }
 
     @Override
     public void updateCasa(int casa) {
-        this.pos = casa;
+//        this.pos = casa;
         System.out.println("Casa recebida pelo updateCasa: " + casa);
         System.out.println("Dado: " + vDado);
-
-        controller.turno(casa, vDado);
-        vDado = 0;
+        
+        boolean jogou = controller.turno(casa, vDado);
+        if(jogou) {
+        	vDado = 0;
+        }
 
         if(api.verificaSeAlgumJogadorVenceu()) {
             encerraJogo();
         }
-
     }
-
 
 }

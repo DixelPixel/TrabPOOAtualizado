@@ -15,7 +15,7 @@ public class Menu extends JComponent implements Observado, Observador {
     API api = API.getInstance();
     public Controller controller;
     private List<Observador> observadores;
-    int vDado;
+    private int vDado;
     private String corJogadorDaVez;
     private Color corDaVez;
     private Tab frame;
@@ -23,6 +23,7 @@ public class Menu extends JComponent implements Observado, Observador {
     private NumeroInputComponent inputVDado;
     private JButton b_LancarDados;
     private JLabel retangulo;
+    private JButton b_SalvarJogo;
 
     public Menu(Tab frame){
     	this.frame = frame;
@@ -30,12 +31,13 @@ public class Menu extends JComponent implements Observado, Observador {
         controller = Controller.getInstance();
         corJogadorDaVez = controller.getNomeCorDaVez();
         corDaVez = controller.getCorDaVez();
+        controller.registraObservador(this);
         		
         registraObservador(frame);
         //		Criando os botões
         JButton b_NovoJogo=new JButton("Novo Jogo");
         JButton b_CarregarJogo=new JButton("Carregar Jogo");
-        JButton b_SalvarJogo=new JButton("Salvar Jogo");
+        b_SalvarJogo = new JButton("Salvar Jogo");
         b_LancarDados = new JButton("Lançar Dados");
 
 //		Definindo tamanho dos botões
@@ -49,6 +51,7 @@ public class Menu extends JComponent implements Observado, Observador {
         JLabel t_Resultado = new JLabel("Resultado:");
         inputVDado = new NumeroInputComponent();
         this.JogadorAtual= new JLabel(corJogadorDaVez);
+        
         JLabel dado = new JLabel();
         dado.setBounds(907, 490, 100, 100);
         dado.setIcon(new ImageIcon(System.getProperty("user.dir") + "/Imagens/Dado6.png"));
@@ -85,7 +88,6 @@ public class Menu extends JComponent implements Observado, Observador {
         b_NovoJogo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	api.resetaJogo();
-                frame.update();
             }
         });
 
@@ -112,7 +114,10 @@ public class Menu extends JComponent implements Observado, Observador {
                 ImageIcon iconeDado = new ImageIcon(dadoPngPath);
                 dado.setIcon(iconeDado);
                 notificaObservadores();
-//                vDado = 0;
+                if(vDado != 6) {
+                	b_LancarDados.setEnabled(false);
+                	b_SalvarJogo.setEnabled(false);
+                }
             }
         });
     }
@@ -151,6 +156,8 @@ public class Menu extends JComponent implements Observado, Observador {
 		// TODO Auto-generated method stub
 		
 		corJogadorDaVez = controller.getNomeCorDaVez();
+		b_LancarDados.setEnabled(true);
+		b_SalvarJogo.setEnabled(true);
 		frame.remove(JogadorAtual);
 		JogadorAtual = new JLabel(corJogadorDaVez);
 		JogadorAtual.setBounds(930, 290, 300, 50);

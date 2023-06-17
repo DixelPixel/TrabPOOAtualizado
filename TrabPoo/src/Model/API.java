@@ -36,9 +36,9 @@ public class API {
             instance = new API();
         return instance;
     }
+    
     public void resetaJogo(){
 		/*Reseta o Tabuleiro e o controller, e cria novos jogadores e peças.*/
-		/* TODO: reiniciar jogador da vez no Retângulo do dado @Miguel */
 		this.tabuleiro = new Tabuleiro();
 		resetaJogadores();
 		Controller controller = Controller.getInstance();

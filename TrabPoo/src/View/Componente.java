@@ -42,10 +42,12 @@ class Componente extends JComponent implements Observado {
         observadores = new ArrayList<>();
     	registraObservador(frame);
     	controller = Controller.getInstance();
-    	
     	if(corJDV == null) {
     		corJDV = controller.getNomeCorDaVez();
     	}
+    	System.out.printf("teste if rodada %d cor da vez: %s corJDV: %s\n", 
+    			controller.getRodada(),controller.getNomeCorDaVez(), corJDV);
+    	
     	if(controller.getRodada() == 1 && corJDV == controller.getNomeCorDaVez()) {
     		controller.primeiraRodada();
     		corJDV = controller.getNomeCorProx();
@@ -405,4 +407,5 @@ class Componente extends JComponent implements Observado {
             observador.updateCasa(pos);
         }
     }
+
 }
