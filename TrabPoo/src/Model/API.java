@@ -271,9 +271,7 @@ public class API {
 	                    
 	                    if(k == 0) {
 	                    	try {
-	                    		String [] partes = linha.split("/");
-	                    		controller.setRodada(Integer.parseInt(partes[0]));
-	                    		controller.setn6(Integer.parseInt(partes[1]));
+	                    		controller.setRodada(Integer.parseInt(linha));
 	                    	}
 	                    	catch(NumberFormatException e) {
 	                    		System.out.println(e);
@@ -286,8 +284,10 @@ public class API {
 	                    }
 	                    
 	                    if(k == 1) {
-	                    	if(linha.equals("VERMELHO") || linha.equals("AMARELO") || linha.equals("AZUL") || linha.equals("VERDE") ) {
-	                    		aux = Cores.valueOf(linha);
+	                    	String [] partes = linha.split("/");
+	                    	if(partes[0].equals("VERMELHO") || partes[0].equals("AMARELO") || partes[0].equals("AZUL") || partes[0].equals("VERDE") ) {
+	                    		controller.setn6(Integer.parseInt(partes[1]));
+	                    		aux = Cores.valueOf(partes[0]);
 		                    	k++;
 		                    	continue;
 	                    	}
