@@ -129,7 +129,7 @@ class Jogador implements Comparable<Jogador>{
 				ret |= false;
 			}
 			else if(p.getPos() > -1) {
-				if(!casas[Tabuleiro.posFinal(p.getPos()+1)].podeMover()) {
+				if(!casas[Tabuleiro.posFinal(p.getPos()+1)].podeMover(-1)) {
 					ret |= false;
 				}
 				else {

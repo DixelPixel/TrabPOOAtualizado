@@ -44,7 +44,9 @@ public class Controller implements Observado{
 		
 		if(rodada == 1 && n6Seguidos == 0 && vDado == 0) {
 //			System.out.println("FALA AEE!");
-			return api.colocaCasaInicial();
+			boolean temp = api.colocaCasaInicial();
+			notificaObservadores();
+			return temp;
 		}
 		
 		else if(vDado == 0) {

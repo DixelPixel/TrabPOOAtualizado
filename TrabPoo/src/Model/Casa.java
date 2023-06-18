@@ -63,8 +63,11 @@ class Casa {
 	}
 	
 	
-	protected boolean podeMover() {
-		return efeito != Efeitos.BARREIRA;
+	protected boolean podeMover(int qtdFaltantes) {
+		if(efeito == Efeitos.BARREIRA || (getNumPecas() == 2 && (qtdFaltantes == 0 && (efeito == Efeitos.ABRIGO || efeito == Efeitos.SAIDA)))) {
+			return false;
+		}
+		return true;
 	}
 	
 	protected Peca captura(Peca p) {

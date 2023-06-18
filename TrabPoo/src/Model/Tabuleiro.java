@@ -291,7 +291,8 @@ class Tabuleiro implements Observado{
 		Casa casaAtual;
 		for(i = 1; i <= vDado; i++) {
 			casaAtual = casas[posFinal(peca.getPos()+i)];
-			if(!casaAtual.podeMover()) {
+			System.out.println("PODE MOVER: " + casaAtual.podeMover(vDado - i));
+			if(!casaAtual.podeMover(vDado - i)) {
 				break;
 			}
 		}
@@ -337,9 +338,9 @@ class Tabuleiro implements Observado{
 					 * nesse caso, o jogador está tentando mover uma peça que está
 					 * na barreira então podemos move-la
 					 */
-					boolean x = movePecaParaCasaPermitida(j.getPeca(idxCasa, click), vDado, click);
+					boolean temp = movePecaParaCasaPermitida(j.getPeca(idxCasa, click), vDado, click);
 					notificaObservadores();
-					return x;
+					return temp;
 				}
 				else {
 					/*
@@ -361,10 +362,10 @@ class Tabuleiro implements Observado{
 					}
 				}
 				if(j.getPeca(idxCasa, click) != null) {
-					boolean a;
-					a = movePecaParaCasaPermitida(j.getPeca(idxCasa, click), vDado, click);
+					boolean temp;
+					temp = movePecaParaCasaPermitida(j.getPeca(idxCasa, click), vDado, click);
 					notificaObservadores();
-					return a;
+					return temp;
 				}
 			}
 		}else {
@@ -374,9 +375,9 @@ class Tabuleiro implements Observado{
 					return true;
 				}
 				else {
-					boolean x =movePecaParaCasaPermitida(j.getPeca(idxCasa, click), vDado, click);
+					boolean temp =movePecaParaCasaPermitida(j.getPeca(idxCasa, click), vDado, click);
 					notificaObservadores();
-					return x;
+					return temp;
 				}
 				
 			}

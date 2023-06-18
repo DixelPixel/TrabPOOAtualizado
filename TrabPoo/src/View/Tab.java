@@ -75,8 +75,6 @@ public class Tab extends JFrame implements Observador {
        this.vDado = dado;
        System.out.println("Valor tirado no dado "+vDado);
        controller.passaVez(dado);
-       updateCasa(-1, false);
-       
     }
 
     @Override

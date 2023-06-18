@@ -42,6 +42,7 @@ class Componente extends JComponent implements Observado {
         observadores = new ArrayList<>();
     	registraObservador(frame);
     	controller = Controller.getInstance();
+    	
     	if(corJDV == null) {
     		corJDV = controller.getNomeCorDaVez();
     	}
@@ -60,7 +61,7 @@ class Componente extends JComponent implements Observado {
                 int y=e.getY();
                 int coordenadaLinear = conversor.getCoordLinear(x,y);
                 pos = coordenadaLinear;
-                if(pos <= 5 && x >= 345){
+                if(pos > -1 && pos <= 5 && x >= 345){
                     retaFinalClick = true;
                 }
                 notificaObservadores();
