@@ -276,6 +276,15 @@ public class API {
 	                    		break;
 	                    	}
 	                    }
+	                    if(k == 1) {
+	                    	if(linha.equals("VERMELHO") || linha.equals("AMARELO") || linha.equals("AZUL") || linha.equals("VERDE") ) {
+		                    	k++;
+	                    	}
+	                    	else {
+	                    		System.out.println("Insira um arquivo válido");
+	                    		break;
+	                    	}
+	                    }
 	                    
 	                   
 	                    String[] partes = linha.split("/");
@@ -310,6 +319,7 @@ public class API {
 	                    }
 	                }
 
+//	                System.out.println("Jogo carregado com sucesso!");
 	                scanner.close();
 	                for (Jogador j : jogadores) {
                         if (j.getCor() == aux) {
@@ -318,7 +328,6 @@ public class API {
                         }
                     }
 
-	                System.out.println("Jogo carregado com sucesso!");
 	            } catch (FileNotFoundException e) {
 	                System.out.println("Arquivo não encontrado: " + e.getMessage());
 	            } catch (NumberFormatException e) {

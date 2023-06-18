@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Menu extends JComponent implements Observado, Observador {
-    API api = API.getInstance();
+	private static final long serialVersionUID = 1L;
+	API api = API.getInstance();
     public Controller controller;
     private List<Observador> observadores;
     private int vDado;
@@ -88,6 +89,7 @@ public class Menu extends JComponent implements Observado, Observador {
         b_NovoJogo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	api.resetaJogo();
+		 update();
             }
         });
 
