@@ -139,6 +139,10 @@ public class Controller implements Observado{
 	public int getRodada() {
 		return rodada;
 	}
+	
+	public void setRodada(int r) {
+		rodada = r;
+	}
 
 	@Override
 	public void registraObservador(Observador observador) {
