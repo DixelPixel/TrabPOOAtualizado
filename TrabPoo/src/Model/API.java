@@ -21,7 +21,7 @@ public class API {
     private List<Jogador> jogadores = new ArrayList<Jogador>();
     private Jogador jogadorDaVez;
 	private Jogador[] ranking;
-	private final Controller controller = Controller.getInstance();
+	private boolean iniciou = false;
 
     private API(){
         this.tabuleiro = new Tabuleiro();
@@ -232,6 +232,7 @@ public class API {
 	}
 	
 	public void CarregaJogo() {
+		Controller controller = Controller.getInstance();
 	    JFileChooser fileChooser = new JFileChooser();
 	    fileChooser.setDialogTitle("Selecione um arquivo");
 
@@ -278,16 +279,19 @@ public class API {
 	                    	
 	                    	
 	                    	k++;
+	                    	continue;
 	                    }
 	                    
 	                    if(k == 1) {
 	                    	if(linha.equals("VERMELHO") || linha.equals("AMARELO") || linha.equals("AZUL") || linha.equals("VERDE") ) {
 	                    		aux = Cores.valueOf(linha);
 		                    	k++;
+		                    	continue;
 	                    	}
 	                    	else {
 	                    		System.out.println("Insira um arquivo válido");
 	                    		break;
+	                    	}
 	                    }
 	                    
 	                   
@@ -331,7 +335,7 @@ public class API {
                             break;
                         }
                     }
-	                }
+	                
 	              }
 	             catch (FileNotFoundException e) {
 	                System.out.println("Arquivo não encontrado: " + e.getMessage());
@@ -343,6 +347,7 @@ public class API {
 	}
 	
 	public void SalvaJogo() {
+		Controller controller = Controller.getInstance();
 		JFileChooser fileChooser = new JFileChooser();
 	    fileChooser.setDialogTitle("Selecione um arquivo");
 	    
