@@ -104,6 +104,7 @@ public class Menu extends JComponent implements Observado, Observador {
             public void actionPerformed(ActionEvent e) {
               api.CarregaJogo();
               update();
+              notificaObservadores();
             }
         });
 

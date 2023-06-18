@@ -243,6 +243,7 @@ public class API {
 	    int resultado = fileChooser.showOpenDialog(null);
 
 	    if (resultado == JFileChooser.APPROVE_OPTION) {
+			resetaJogo();
 	        File arquivoSelecionado = fileChooser.getSelectedFile();
 
 	        // Verificar a extensão do arquivo selecionado
