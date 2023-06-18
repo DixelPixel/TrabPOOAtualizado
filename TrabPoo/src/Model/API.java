@@ -231,7 +231,7 @@ public class API {
 		return false;
 	}
 	
-	public void CarregaJogo() {
+		public void CarregaJogo() {
 		Controller controller = Controller.getInstance();
 	    JFileChooser fileChooser = new JFileChooser();
 	    fileChooser.setDialogTitle("Selecione um arquivo");
@@ -243,7 +243,7 @@ public class API {
 	    int resultado = fileChooser.showOpenDialog(null);
 
 	    if (resultado == JFileChooser.APPROVE_OPTION) {
-			resetaJogo();
+	    	resetaJogo();
 	        File arquivoSelecionado = fileChooser.getSelectedFile();
 
 	        // Verificar a extensão do arquivo selecionado
@@ -271,7 +271,9 @@ public class API {
 	                    
 	                    if(k == 0) {
 	                    	try {
-	                    		controller.setRodada(Integer.parseInt(linha));
+	                    		String [] partes = linha.split("/");
+	                    		controller.setRodada(Integer.parseInt(partes[0]));
+	                    		controller.setn6(Integer.parseInt(partes[1]));
 	                    	}
 	                    	catch(NumberFormatException e) {
 	                    		System.out.println(e);
@@ -370,7 +372,7 @@ public class API {
 	        	try {
 			        FileWriter writer = new FileWriter(arquivoSelecionado);
 			        writer.write(Integer.toString(controller.getRodada()) + "\n");
-			         writer.write(jogadorDaVez.getCor().toString() + "/" + Integer.toString(controller.getn6()) + "\n");
+			        writer.write(jogadorDaVez.getCor().toString() + "/" + Integer.toString(controller.getn6()) + "\n");
 			        for(Jogador jogador:jogadores) {
 			        	writer.write(jogador.getCor().toString() + "\n");
 			        	for(Peca peca:jogador.getPecas()) {
