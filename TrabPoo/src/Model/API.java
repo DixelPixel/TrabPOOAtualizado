@@ -256,12 +256,25 @@ public class API {
 	                resetaJogadores();
 	                
 	                int i = 0;
-	                int defineJogadorDaVez = 0;//Utilizado para no final definir o jogador da vez, retornando a quem estava na hora do salvamento
+	                int k = 0;//Utilizado para no final definir o jogador da vez, retornando a quem estava na hora do salvamento
+	                Cores aux = null; //utilizado para armazenar qual será o jogador da vez no final
+	                
 	                // Atualizar informações dos jogadores e peças
 	                while (scanner.hasNextLine()) {
 	                    String linha = scanner.nextLine();
 	                    if (linha.isEmpty()) {
 	                        continue;
+	                    }
+	                    
+	                    if(k == 0) {
+	                    	if(linha.equals("VERMELHO") || linha.equals("AMARELO") || linha.equals("AZUL") || linha.equals("VERDE") ) {
+	                    		aux = Cores.valueOf(linha);
+		                    	k++;
+	                    	}
+	                    	else {
+	                    		System.out.println("Insira um arquivo válido");
+	                    		break;
+	                    	}
 	                    }
 	                    
 	                   
@@ -298,8 +311,14 @@ public class API {
 	                }
 
 	                scanner.close();
+	                for (Jogador j : jogadores) {
+                        if (j.getCor() == aux) {
+                            jogadorDaVez = j;
+                            break;
+                        }
+                    }
+
 	                System.out.println("Jogo carregado com sucesso!");
-	                atualizaJogadorDaVez();
 	            } catch (FileNotFoundException e) {
 	                System.out.println("Arquivo não encontrado: " + e.getMessage());
 	            } catch (NumberFormatException e) {
@@ -330,7 +349,7 @@ public class API {
 	        }else {
 	        	try {
 			        FileWriter writer = new FileWriter(arquivoSelecionado);
-			        
+			        writer.write(jogadorDaVez.getCor().toString() + "\n");
 			        for(Jogador jogador:jogadores) {
 			        	writer.write(jogador.getCor().toString() + "\n");
 			        	for(Peca peca:jogador.getPecas()) {
