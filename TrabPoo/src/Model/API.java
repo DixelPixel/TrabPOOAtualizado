@@ -229,6 +229,7 @@ public class API {
 		}
 		return false;
 	}
+	
 	public void CarregaJogo() {
 	    JFileChooser fileChooser = new JFileChooser();
 	    fileChooser.setDialogTitle("Selecione um arquivo");
@@ -255,6 +256,7 @@ public class API {
 	                resetaJogadores();
 	                
 	                int i = 0;
+	                int defineJogadorDaVez = 0;//Utilizado para no final definir o jogador da vez, retornando a quem estava na hora do salvamento
 	                // Atualizar informações dos jogadores e peças
 	                while (scanner.hasNextLine()) {
 	                    String linha = scanner.nextLine();
@@ -262,8 +264,9 @@ public class API {
 	                        continue;
 	                    }
 	                    
+	                   
 	                    String[] partes = linha.split("/");
-	                    if (partes.length == 2) {
+	                    if (partes.length == 2 && (( ( (Integer.parseInt(partes[0]) >= -1) || (Integer.parseInt(partes[0]) <= 52) ) && ( ( (Integer.parseInt(partes[1]) >= 0) || (Integer.parseInt(partes[1]) <= 53) ) )) ))  {
 	                        int pos = Integer.parseInt(partes[0]);
 	                        int casasPercorridas = Integer.parseInt(partes[1]);
 
@@ -272,7 +275,8 @@ public class API {
 	                        jogadorDaVez.getPecas()[i].setCasasPercorridas(casasPercorridas);
 	                        i++;
 	                        
-	                    } else {
+	                    } else if (partes[0].strip().equalsIgnoreCase("VERMELHO") || partes[0].strip().equalsIgnoreCase("AZUL") || partes[0].strip().equalsIgnoreCase("VERDE") || partes[0].strip().equalsIgnoreCase("AMARELO")  ) {
+	                    	System.out.println("entrei aqui");
 	                        Cores cor = Cores.valueOf(partes[0]);
 
 	                        // Encontrar o jogador correspondente à cor
@@ -288,6 +292,8 @@ public class API {
 	                        	i = 0;
 	                            jogadorDaVez = jogador;
 	                        }
+	                    }else {
+	                    	System.out.println("Insira um arquivo válido");
 	                    }
 	                }
 
@@ -340,9 +346,7 @@ public class API {
 	        
 	        
 	    }
-	    
-	    
-	    
+	       
 	}
 
 }
