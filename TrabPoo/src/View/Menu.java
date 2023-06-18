@@ -25,6 +25,7 @@ public class Menu extends JComponent implements Observado, Observador {
     private JButton b_LancarDados;
     private JLabel retangulo;
     private JButton b_SalvarJogo;
+    private boolean resetou = false;
 
     public Menu(Tab frame){
     	this.frame = frame;
@@ -33,8 +34,9 @@ public class Menu extends JComponent implements Observado, Observador {
         corJogadorDaVez = controller.getNomeCorDaVez();
         corDaVez = controller.getCorDaVez();
         controller.registraObservador(this);
-        		
+        
         registraObservador(frame);
+        registraObservador(frame.getComponente());
         //		Criando os botões
         JButton b_NovoJogo=new JButton("Novo Jogo");
         JButton b_CarregarJogo=new JButton("Carregar Jogo");
@@ -88,8 +90,12 @@ public class Menu extends JComponent implements Observado, Observador {
         // Adicione um ActionListener ao botão Novo Jogo
         b_NovoJogo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+            	resetou = true;
+            	notificaObservadores();
             	api.resetaJogo();
-		 update();
+            	update();
+            	notificaObservadores();
+            	
             }
         });
 
@@ -151,6 +157,9 @@ public class Menu extends JComponent implements Observado, Observador {
     public void notificaObservadores() {
         for(Observador observador : observadores){
             observador.update(vDado);
+            if(resetou) {
+            	observador.update();
+            }
         }
     }
 

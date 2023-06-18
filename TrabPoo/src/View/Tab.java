@@ -27,10 +27,9 @@ public class Tab extends JFrame implements Observador {
 		
 		controller = Controller.getInstance();
         api = API.getInstance();
-        Menu menu = new Menu(this);
         tabuleiro = new Componente(this);
+        Menu menu = new Menu(this);
         
-        controller.registraObservador(menu);
         controller.registraObservador(this);
         menu.getComponenteInput().registraObservador(this);
 
@@ -55,6 +54,9 @@ public class Tab extends JFrame implements Observador {
         }else{
             System.exit(0);
         }
+    }
+    public Componente getComponente() {
+    	return tabuleiro;
     }
 
     @Override

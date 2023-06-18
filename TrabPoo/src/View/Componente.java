@@ -1,7 +1,6 @@
 package View;
 
 import Model.API;
-import Model.Cores;
 import Model.Observado;
 
 import java.awt.Color;
@@ -17,7 +16,7 @@ import javax.swing.JComponent;
 
 import Controller.Controller;
 
-class Componente extends JComponent implements Observado {
+class Componente extends JComponent implements Observado, Observador {
 	private static final long serialVersionUID = 1L;
 	public final int LARG_DEFAULT=1200;
     public final int ALT_DEFAULT=700;
@@ -46,8 +45,6 @@ class Componente extends JComponent implements Observado {
     	if(corJDV == null) {
     		corJDV = controller.getNomeCorDaVez();
     	}
-    	System.out.printf("teste if rodada %d cor da vez: %s corJDV: %s\n", 
-    			controller.getRodada(),controller.getNomeCorDaVez(), corJDV);
     	
     	if(controller.getRodada() == 1 && corJDV == controller.getNomeCorDaVez()) {
     		controller.primeiraRodada();
@@ -411,5 +408,23 @@ class Componente extends JComponent implements Observado {
             observador.updateCasa(pos, retaFinalClick);
         }
     }
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		corJDV = null;
+	}
+
+	@Override
+	public void update(int dado) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateCasa(int casa, boolean click) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

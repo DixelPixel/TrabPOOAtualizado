@@ -291,7 +291,6 @@ class Tabuleiro implements Observado{
 		Casa casaAtual;
 		for(i = 1; i <= vDado; i++) {
 			casaAtual = casas[posFinal(peca.getPos()+i)];
-			System.out.println("PODE MOVER: " + casaAtual.podeMover(vDado - i));
 			if(!casaAtual.podeMover(vDado - i)) {
 				break;
 			}
