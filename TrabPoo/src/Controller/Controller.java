@@ -39,6 +39,20 @@ public class Controller implements Observado{
 		return false;
 	}
 	
+	public int getn6() {
+		return n6Seguidos;
+	}
+	
+	public void setn6(int n) {
+		if(n >= 0 && n <= 3) {			
+			n6Seguidos = n;
+		}
+		else {
+			System.out.println("Numero inválido, resetado para 0");
+			n6Seguidos = 0;
+		}
+	}
+	
 	public boolean turno(int casaClicada, int vDado, boolean click) {
 		boolean andou;
 		
