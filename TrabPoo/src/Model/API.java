@@ -370,7 +370,7 @@ public class API {
 	        	try {
 			        FileWriter writer = new FileWriter(arquivoSelecionado);
 			        writer.write(Integer.toString(controller.getRodada()) + "\n");
-			        writer.write(jogadorDaVez.getCor().toString() + "\n");
+			         writer.write(jogadorDaVez.getCor().toString() + "/" + Integer.toString(controller.getn6()) + "\n");
 			        for(Jogador jogador:jogadores) {
 			        	writer.write(jogador.getCor().toString() + "\n");
 			        	for(Peca peca:jogador.getPecas()) {
