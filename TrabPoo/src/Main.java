@@ -8,10 +8,10 @@ public class Main {
 		API api = API.getInstance();
 		Controller c = Controller.getInstance();
 		api.colocaCasaInicial(Cores.VERMELHO);
-		api.movePecaJogador(Cores.VERMELHO,13,51);
-		api.printTabuleiro();
-		api.movePecaJogador(Cores.VERMELHO,0,1);
-		api.printTabuleiro();
+//		api.movePecaJogador(Cores.VERMELHO,13,51);
+//		api.printTabuleiro();
+//		api.movePecaJogador(Cores.VERMELHO,0,1);
+//		api.printTabuleiro();
 
 		
 //		 vermelho

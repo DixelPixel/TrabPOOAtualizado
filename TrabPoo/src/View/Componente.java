@@ -28,7 +28,7 @@ class Componente extends JComponent implements Observado {
     private List<Observador> observadores;
     private API api;
     private Controller controller;
-    
+    public boolean retaFinalClick = false;
 	/**
 	 * essa variavel corJDV serve para evitar que um jogador tenha mais de uma peça
 	 * retirada da casa inicial em uma rodada. Ela é uma variavel estática pois não
@@ -60,8 +60,11 @@ class Componente extends JComponent implements Observado {
                 int y=e.getY();
                 int coordenadaLinear = conversor.getCoordLinear(x,y);
                 pos = coordenadaLinear;
+                if(pos <= 5 && x >= 345){
+                    retaFinalClick = true;
+                }
                 notificaObservadores();
-
+                retaFinalClick = false;
             }
 			@Override
             public void mousePressed(MouseEvent e) {
@@ -404,7 +407,7 @@ class Componente extends JComponent implements Observado {
     @Override
     public void notificaObservadores() {
         for(Observador observador : observadores){
-            observador.updateCasa(pos);
+            observador.updateCasa(pos, retaFinalClick);
         }
     }
 

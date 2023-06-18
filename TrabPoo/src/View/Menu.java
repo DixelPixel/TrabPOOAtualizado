@@ -183,7 +183,7 @@ public class Menu extends JComponent implements Observado, Observador {
 	}
 
 	@Override
-	public void updateCasa(int casa) {
+	public void updateCasa(int casa, boolean click) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -75,17 +75,17 @@ public class Tab extends JFrame implements Observador {
        this.vDado = dado;
        System.out.println("Valor tirado no dado "+vDado);
        controller.passaVez(dado);
-       updateCasa(-1);
+       updateCasa(-1, false);
        
     }
 
     @Override
-    public void updateCasa(int casa) {
+    public void updateCasa(int casa, boolean click) {
 //        this.pos = casa;
         System.out.println("Casa recebida pelo updateCasa: " + casa);
         System.out.println("Dado: " + vDado);
         
-        boolean jogou = controller.turno(casa, vDado);
+        boolean jogou = controller.turno(casa, vDado, click);
         if(jogou) {
         	vDado = 0;
         }

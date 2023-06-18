@@ -113,25 +113,25 @@ public class API {
     public void colocaCasaInicial(Cores cor){
         for(Jogador j: jogadores) {
         	if(j.getCor() == cor) {
-        		tabuleiro.setPecaCasaDeSaida(j.getPeca(-1));
+        		tabuleiro.setPecaCasaDeSaida(j.getPeca(-1, false));
         		break;
         	}
         }
     }
     
     public boolean colocaCasaInicial(){
-    	return tabuleiro.setPecaCasaDeSaida(jogadorDaVez.getPeca(-1));
+    	return tabuleiro.setPecaCasaDeSaida(jogadorDaVez.getPeca(-1, false));
     }
     
 	/* retorna true se foi possivel mover a peca e falso caso contrario */
-    public boolean movePecaJogador(int casa, int mov){
-        return tabuleiro.movePeca(jogadorDaVez, casa, mov);
+    public boolean movePecaJogador(int casa, int mov, boolean click){
+        return tabuleiro.movePeca(jogadorDaVez, casa, mov, click);
     }
     
-    public boolean movePecaJogador(Cores cor, int casa, int mov){
+    public boolean movePecaJogador(Cores cor, int casa, int mov, boolean click){
         for(Jogador j: jogadores) {
         	if(j.getCor() == cor) {
-        		return tabuleiro.movePeca(j, casa, mov);
+        		return tabuleiro.movePeca(j, casa, mov, click);
         	}
         }
         return false;

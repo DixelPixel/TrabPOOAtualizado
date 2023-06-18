@@ -72,11 +72,17 @@ class Jogador implements Comparable<Jogador>{
 		return pecas;
 	}
 	
-	protected Peca getPeca(int pos) {
+	protected Peca getPeca(int pos, boolean click) {
 		/* retorna a peca na posição pos */
 		for(int i = 0; i < 4; i++) {
-			if(pos == pecas[i].getPos())
+			if(pos == pecas[i].getPos() && (!click && !pecas[i].isRetaFinal()))
 				return pecas[i];
+			else if(pos == pecas[i].getPos() && (click && pecas[i].isRetaFinal())){
+				return pecas[i];
+			}
+			else if(pos == pecas[i].getPos() && (!click && pecas[i].isRetaFinal())){
+				return pecas[i];
+			}
 		}
 		return null; 
 		

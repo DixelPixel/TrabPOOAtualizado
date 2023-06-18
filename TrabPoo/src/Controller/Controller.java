@@ -39,7 +39,7 @@ public class Controller implements Observado{
 		return false;
 	}
 	
-	public boolean turno(int casaClicada, int vDado) {
+	public boolean turno(int casaClicada, int vDado, boolean click) {
 		boolean andou;
 		
 		if(rodada == 1 && n6Seguidos == 0 && vDado == 0) {
@@ -62,7 +62,7 @@ public class Controller implements Observado{
 			notificaObservadores();
 			return false;
 		}
-		andou = api.movePecaJogador(casaClicada, vDado);
+		andou = api.movePecaJogador(casaClicada, vDado, click);
 		if(andou) {
 			if(vDado == 6) {
 				n6Seguidos++;

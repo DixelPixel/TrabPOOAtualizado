@@ -222,7 +222,7 @@ class Tabuleiro implements Observado{
 		
 	}
 	
-	private void executaOperacoesParaMover(Peca peca, int vDado) {
+	private void executaOperacoesParaMover(Peca peca, int vDado, boolean click) {
 		/*
 		 * essa é a função responsavel por efetivamente fazer as operações nas
 		 * estruturas para mover uma peça
@@ -260,7 +260,7 @@ class Tabuleiro implements Observado{
 				casaFinal.setEfeito();
 				casaAtualPeca.setEfeito();
 				
-				movePecaParaCasaPermitida(peca, 6);
+				movePecaParaCasaPermitida(peca, 6, click);
 			}
 			else {
 				peca.movePeca(pos, vDado);
@@ -285,7 +285,7 @@ class Tabuleiro implements Observado{
 		return casasRetaFinal[idx];
 	}
 	
-	private boolean movePecaParaCasaPermitida(Peca peca, int vDado) {
+	private boolean movePecaParaCasaPermitida(Peca peca, int vDado, boolean click) {
 	
 		int i;
 		Casa casaAtual;
@@ -295,12 +295,12 @@ class Tabuleiro implements Observado{
 				break;
 			}
 		}
-		executaOperacoesParaMover(peca, i-1);
+		executaOperacoesParaMover(peca, i-1, click);
 		return true;
 		
 	}
 	
-	public boolean movePeca(Jogador j, int idxCasa, int vDado) {
+	public boolean movePeca(Jogador j, int idxCasa, int vDado, boolean click) {
 		/*
 		 * essa é a função responsavel por decidir se o movimento da peça na casa de
 		 * indice passado pode ser feita o idxCasa = -1 significa que ele quer tirar
@@ -317,7 +317,7 @@ class Tabuleiro implements Observado{
 				 * inicial tem que tirar 5 no dado
 				 */
 				if(vDado == 5) {
-					if(setPecaCasaDeSaida(j.getPeca(idxCasa))) {
+					if(setPecaCasaDeSaida(j.getPeca(idxCasa, click))) {
 						/*nesse caso, o jogador saiu da casa inicial com uma peça, ou seja,
 						jogada feita*/
 						notificaObservadores();
@@ -337,7 +337,7 @@ class Tabuleiro implements Observado{
 					 * nesse caso, o jogador está tentando mover uma peça que está
 					 * na barreira então podemos move-la
 					 */
-					boolean x = movePecaParaCasaPermitida(j.getPeca(idxCasa), vDado);
+					boolean x = movePecaParaCasaPermitida(j.getPeca(idxCasa, click), vDado, click);
 					notificaObservadores();
 					return x;
 				}
@@ -351,7 +351,7 @@ class Tabuleiro implements Observado{
 				}
 			}else {
 				if(vDado == 5) {
-					if(setPecaCasaDeSaida(j.getPeca(-1))) {
+					if(setPecaCasaDeSaida(j.getPeca(-1, click))) {
 						/*
 						 * nesse caso o jogador saiu com uma peça da casa inicial e
 						 * essa foi a sua jogada
@@ -360,21 +360,21 @@ class Tabuleiro implements Observado{
 						return true;
 					}
 				}
-				if(j.getPeca(idxCasa) != null) {
+				if(j.getPeca(idxCasa, click) != null) {
 					boolean a;
-					a = movePecaParaCasaPermitida(j.getPeca(idxCasa), vDado);
+					a = movePecaParaCasaPermitida(j.getPeca(idxCasa, click), vDado, click);
 					notificaObservadores();
 					return a;
 				}
 			}
 		}else {
 			if(vDado == 5) {
-				if(setPecaCasaDeSaida(j.getPeca(-1))) {
+				if(setPecaCasaDeSaida(j.getPeca(-1, click))) {
 					notificaObservadores();
 					return true;
 				}
 				else {
-					boolean x =movePecaParaCasaPermitida(j.getPeca(idxCasa), vDado);
+					boolean x =movePecaParaCasaPermitida(j.getPeca(idxCasa, click), vDado, click);
 					notificaObservadores();
 					return x;
 				}
