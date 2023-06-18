@@ -88,6 +88,7 @@ public class Menu extends JComponent implements Observado, Observador {
         b_NovoJogo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	api.resetaJogo();
+		 update();
             }
         });
 
@@ -95,6 +96,7 @@ public class Menu extends JComponent implements Observado, Observador {
         b_CarregarJogo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
               api.CarregaJogo();
+		update();
             }
         });
 
