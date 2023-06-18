@@ -21,6 +21,7 @@ public class API {
     private List<Jogador> jogadores = new ArrayList<Jogador>();
     private Jogador jogadorDaVez;
 	private Jogador[] ranking;
+	private final Controller controller = Controller.getInstance();
 
     private API(){
         this.tabuleiro = new Tabuleiro();
@@ -256,7 +257,7 @@ public class API {
 	                resetaJogadores();
 	                
 	                int i = 0;
-	                int k = 0;//Utilizado para no final definir o jogador da vez, retornando a quem estava na hora do salvamento
+	                int k = 0;//Utilizado para no final definir o jogador da vez, retornando a quem estava na hora do salvamento e para definir a rodada
 	                Cores aux = null; //utilizado para armazenar qual será o jogador da vez no final
 	                
 	                // Atualizar informações dos jogadores e peças
@@ -267,6 +268,19 @@ public class API {
 	                    }
 	                    
 	                    if(k == 0) {
+	                    	try {
+	                    		controller.setRodada(Integer.parseInt(linha));
+	                    	}
+	                    	catch(NumberFormatException e) {
+	                    		System.out.println(e);
+	                    		System.out.println("Insira um arquivo válido");
+	                    	}
+	                    	
+	                    	
+	                    	k++;
+	                    }
+	                    
+	                    if(k == 1) {
 	                    	if(linha.equals("VERMELHO") || linha.equals("AMARELO") || linha.equals("AZUL") || linha.equals("VERDE") ) {
 	                    		aux = Cores.valueOf(linha);
 		                    	k++;
@@ -274,16 +288,6 @@ public class API {
 	                    	else {
 	                    		System.out.println("Insira um arquivo válido");
 	                    		break;
-	                    	}
-	                    }
-	                    if(k == 1) {
-	                    	if(linha.equals("VERMELHO") || linha.equals("AMARELO") || linha.equals("AZUL") || linha.equals("VERDE") ) {
-		                    	k++;
-	                    	}
-	                    	else {
-	                    		System.out.println("Insira um arquivo válido");
-	                    		break;
-	                    	}
 	                    }
 	                    
 	                   
@@ -319,7 +323,7 @@ public class API {
 	                    }
 	                }
 
-//	                System.out.println("Jogo carregado com sucesso!");
+
 	                scanner.close();
 	                for (Jogador j : jogadores) {
                         if (j.getCor() == aux) {
@@ -327,8 +331,9 @@ public class API {
                             break;
                         }
                     }
-
-	            } catch (FileNotFoundException e) {
+	                }
+	              }
+	             catch (FileNotFoundException e) {
 	                System.out.println("Arquivo não encontrado: " + e.getMessage());
 	            } catch (NumberFormatException e) {
 	                System.out.println("Formato inválido no arquivo: " + e.getMessage());
@@ -358,6 +363,7 @@ public class API {
 	        }else {
 	        	try {
 			        FileWriter writer = new FileWriter(arquivoSelecionado);
+			        writer.write(Integer.toString(controller.getRodada()) + "\n");
 			        writer.write(jogadorDaVez.getCor().toString() + "\n");
 			        for(Jogador jogador:jogadores) {
 			        	writer.write(jogador.getCor().toString() + "\n");
