@@ -62,7 +62,6 @@ public class Tab extends JFrame implements Observador {
     @Override
     public void update() {
     	
-//    	vDado = 0;
         getContentPane().remove(tabuleiro);
         Componente aux = new Componente(this);
         tabuleiro = aux;

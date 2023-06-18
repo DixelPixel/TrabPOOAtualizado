@@ -122,11 +122,11 @@ public class Menu extends JComponent implements Observado, Observador {
                 String dadoPngPath = projectPath + "/Imagens/Dado" + vDado + ".png";
                 ImageIcon iconeDado = new ImageIcon(dadoPngPath);
                 dado.setIcon(iconeDado);
-                notificaObservadores();
                 if(vDado != 6) {
                 	b_LancarDados.setEnabled(false);
                 	b_SalvarJogo.setEnabled(false);
                 }
+                notificaObservadores();
             }
         });
     }

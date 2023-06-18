@@ -79,7 +79,7 @@ public class Controller implements Observado{
 				if(api.getCorDaVez() == Cores.AZUL) {
 					rodada++;
 				}
-				n6Seguidos = 1;
+				n6Seguidos = 0;
 				atualizaJogadorDaVez();
 				notificaObservadores();
 			}
