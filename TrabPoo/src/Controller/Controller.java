@@ -13,12 +13,14 @@ import java.awt.Color;
 public class Controller implements Observado{
 	private final API api = API.getInstance();
 	private int rodada = 1;
-	private int n6Seguidos = 1;
+	private int n6Seguidos = 0;
 	private static Controller instance = null;
 	private List<Observador> observadores;
+	private boolean jaBotouSaida;
 	
 	private Controller() {
 		observadores = new ArrayList<Observador>();
+		jaBotouSaida = false;
 	}
 	
 	public static Controller getInstance() {
@@ -29,15 +31,10 @@ public class Controller implements Observado{
 	}
 	public void reinicia(){
 		rodada = 1;
+		jaBotouSaida = false;
 		notificaObservadores();
 	}
 	
-	public boolean primeiraRodada() {
-		if(rodada == 1) {
-			return api.colocaCasaInicial();
-		}
-		return false;
-	}
 	
 	public int getn6() {
 		return n6Seguidos;
@@ -53,31 +50,26 @@ public class Controller implements Observado{
 		}
 	}
 	
+	public void atualizaJogadorDaVez() {
+		api.atualizaJogadorDaVez();
+		jaBotouSaida = false;
+	}
+	
+	public boolean primeiraRodada() {
+		if(rodada == 1 && !jaBotouSaida) {
+			jaBotouSaida = true;
+			return api.colocaCasaInicial();
+		}
+		return false;
+	}
+	
 	public boolean turno(int casaClicada, int vDado, boolean click) {
 		boolean andou;
 		
-		if(rodada == 1 && n6Seguidos == 0 && vDado == 0) {
-//			System.out.println("FALA AEE!");
-			boolean temp = api.colocaCasaInicial();
-			notificaObservadores();
-			return temp;
-		}
-		
-		else if(vDado == 0) {
+		if(vDado == 0) {
 			return false;
 		}
 		
-		if(n6Seguidos == 3) {
-			api.voltaCasaInicial();
-			System.out.println("Uma peca do jogador: "
-			+ api.getCorDaVez().name().toLowerCase() + 
-			" foi jogada para a casa inicial pois tirou o terceiro 6 seguido!");
-			
-			n6Seguidos = 1;
-			api.atualizaJogadorDaVez();
-			notificaObservadores();
-			return false;
-		}
 		andou = api.movePecaJogador(casaClicada, vDado, click);
 		if(andou) {
 			if(vDado == 6) {
@@ -87,8 +79,8 @@ public class Controller implements Observado{
 				if(api.getCorDaVez() == Cores.AZUL) {
 					rodada++;
 				}
-				n6Seguidos = 0;
-				api.atualizaJogadorDaVez();
+				n6Seguidos = 1;
+				atualizaJogadorDaVez();
 				notificaObservadores();
 			}
 		}
@@ -96,8 +88,21 @@ public class Controller implements Observado{
 			passaVez(vDado);
 		}
 		
-		System.out.println("Andou? " + andou + " rodada " + rodada + " Dado: " + vDado);
-//		api.printTabuleiro();
+		if(n6Seguidos == 3) {
+			api.voltaCasaInicial();
+			System.out.println("Uma peca do jogador: "
+			+ api.getCorDaVez().name().toLowerCase() + 
+			" foi jogada para a casa inicial pois tirou o terceiro 6 seguido!");
+			
+			n6Seguidos = 0;
+			atualizaJogadorDaVez();
+			notificaObservadores();
+			return false;
+		}
+		
+		System.out.printf("Andou: %b Rodada: %d Dado: %d QTD 6 seguidos: %d\n",
+				andou, rodada, vDado, n6Seguidos);
+		notificaObservadores();
 		return andou;
 	}
 	
@@ -108,7 +113,7 @@ public class Controller implements Observado{
 	public boolean passaVez(int vDado) {
 		boolean ret = api.jogadorDaVezTemPecaParaMover();
 		if(!ret && vDado != 5) {
-			api.atualizaJogadorDaVez();
+			atualizaJogadorDaVez();
 			notificaObservadores();
 		}
 		return !ret;

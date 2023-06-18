@@ -42,13 +42,8 @@ class Componente extends JComponent implements Observado, Observador {
     	registraObservador(frame);
     	controller = Controller.getInstance();
     	
-    	if(corJDV == null) {
-    		corJDV = controller.getNomeCorDaVez();
-    	}
-    	
-    	if(controller.getRodada() == 1 && corJDV == controller.getNomeCorDaVez()) {
+    	if(controller.getRodada() == 1) {
     		controller.primeiraRodada();
-    		corJDV = controller.getNomeCorProx();
     	}
 
         this.addMouseListener(new MouseListener() {

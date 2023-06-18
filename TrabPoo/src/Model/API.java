@@ -13,7 +13,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 public class API {
     private static API instance;
@@ -304,12 +303,11 @@ public class API {
 	                        int casasPercorridas = Integer.parseInt(partes[1]);
 
 	                        // Atualizar posição e casas percorridas da peça
-	                        jogadorDaVez.getPecas()[i].setPos(pos);
 	                        jogadorDaVez.getPecas()[i].setCasasPercorridas(casasPercorridas);
+	                        jogadorDaVez.getPecas()[i].setPos(pos);
 	                        i++;
 	                        
 	                    } else if (partes[0].strip().equalsIgnoreCase("VERMELHO") || partes[0].strip().equalsIgnoreCase("AZUL") || partes[0].strip().equalsIgnoreCase("VERDE") || partes[0].strip().equalsIgnoreCase("AMARELO")  ) {
-	                    	System.out.println("entrei aqui");
 	                        Cores cor = Cores.valueOf(partes[0]);
 
 	                        // Encontrar o jogador correspondente à cor

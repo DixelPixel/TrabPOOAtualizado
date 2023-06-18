@@ -91,10 +91,9 @@ public class Menu extends JComponent implements Observado, Observador {
         b_NovoJogo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	resetou = true;
-            	notificaObservadores();
             	api.resetaJogo();
-            	update();
             	notificaObservadores();
+            	update();
             	
             }
         });

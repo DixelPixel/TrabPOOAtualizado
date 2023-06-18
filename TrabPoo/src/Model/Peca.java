@@ -49,7 +49,9 @@ class Peca {
 	
 	protected void setPos(int pos) {
 		this.pos = pos;
-
+		if(casasPercorridas > 51) {
+			retaFinal = true;
+		}
 	}
 	
 	protected void setCasasPercorridas(int n) {
