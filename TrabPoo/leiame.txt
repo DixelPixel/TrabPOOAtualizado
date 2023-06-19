@@ -1,0 +1,6 @@
+Trabalho Programação Orientada a Objetos 2023.1
+João Pedro Biscaia Fernandes - 2110361
+Vinícius Machado da Rocha Viana - 2111343
+Miguel Angelus Araruna de Aquino - 2120640
+
+Nome da classe que contém método main: App.java, no caminho src/View/App.java
